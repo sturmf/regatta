@@ -7,7 +7,8 @@ The main goal of this project is to learn about the state of the art development
 
 This means especially using the following:
 
-* Distributed version control (git)
+* Distributed version control (GitHub.com)
+* Code review (GerritHub.io)
 * Continues integration (Travis-CI)
 * Test coverage (Coveralls.io)
 * Planing and issue tracking (JIRA Software)
