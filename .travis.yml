@@ -1,10 +1,15 @@
 language: python
+
 python:
   - "3.3"
   - "3.4"
-  - "3.5"
+
 install: 
   - pip install -r requirements.txt
-#  - pip install tox
-script: py.test
-#  - tox -e $(echo py$TRAVIS_PYTHON_VERSION | tr -d . | sed -e 's/pypypy/pypy/')-$COVPYYAML
+  - pip install -U coverage coveralls
+
+script:
+  coverage run -a py.test
+
+after_success:
+  coveralls
