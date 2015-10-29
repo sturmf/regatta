@@ -3,8 +3,7 @@ regatta
 
 A simple sailing race scoring program
 
-.. image:: https://travis-ci.org/sturmf/regatta.svg?branch=master
-    :target: https://travis-ci.org/sturmf/regatta
+[![Build Status](https://travis-ci.org/sturmf/regatta.svg?branch=master)](https://travis-ci.org/sturmf/regatta)
 
 This program is just begining its development, so don't expect a working version any time soon.
 
