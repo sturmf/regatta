@@ -6,11 +6,10 @@ python:
 
 install: 
   - pip install -r requirements.txt
-  - pip install -U pytest-cov
-  - pip install -U python-coveralls
+  - pip install coveralls
 
 script:
-  py.test --cov=.
+  coverage run --source=. test.py
 
 after_success:
   coveralls
