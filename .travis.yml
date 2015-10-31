@@ -9,7 +9,7 @@ install:
   - pip install coveralls
 
 script:
-  coverage run --source=main.py -m py.test
+  coverage run --source=regatta -m py.test
 
 after_success:
   coveralls
