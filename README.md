@@ -18,8 +18,9 @@ This means especially using the following:
 * Test coverage (Coveralls.io)
 * ReviewBoard (www.reviewboard.org)
 * Code review (GerritHub.io)
-* Planing and issue tracking (JIRA Software)
-* Documentation (JIRA Confluence)
+* Style guide checking pep8 and pyflakes (todo)
+* Planing and issue tracking (JIRA Software) (todo)
+* Documentation (JIRA Confluence) (todo)
 
 
 # Contributions from non team members
@@ -28,7 +29,7 @@ Feel free to clone the repository on github and submit a pull request. In that c
 Or directly push to gerrit. (FIXME: describe)
 
 
-# Contributions from team members
+# Contributions from team members (using gerrit)
 
 Since we use gerrit for code review you need to do the following steps to be able to submit a change.
 
