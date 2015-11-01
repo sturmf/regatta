@@ -5,6 +5,7 @@ A simple sailing race scoring program
 
 [![Build Status](https://travis-ci.org/sturmf/regatta.svg?branch=master)](https://travis-ci.org/sturmf/regatta)
 [![Coverage Status](https://coveralls.io/repos/sturmf/regatta/badge.svg?branch=master&service=github)](https://coveralls.io/github/sturmf/regatta?branch=master)
+[Reviews](http://reviewboard.rtfs.org/)
 
 This program is just begining its development, so don't expect a working version any time soon.
 
@@ -15,6 +16,7 @@ This means especially using the following:
 * Distributed version control (GitHub.com)
 * Continues integration (Travis-CI)
 * Test coverage (Coveralls.io)
+* ReviewBoard (www.reviewboard.org)
 * Code review (GerritHub.io)
 * Planing and issue tracking (JIRA Software)
 * Documentation (JIRA Confluence)
