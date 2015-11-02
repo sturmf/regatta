@@ -13,15 +13,19 @@ The main goal of this project is to learn about the state of the art development
 
 This means especially using the following:
 
-* Distributed version control (GitHub.com)
-* Continues integration (Travis-CI)
-* Test coverage (Coveralls.io)
-* ReviewBoard (www.reviewboard.org)
-* Code review (GerritHub.io)
-* Style guide checking pep8 and pyflakes (todo)
-* Planing and issue tracking (JIRA Software) (todo)
-* Documentation (JIRA Confluence) (todo)
+* Distributed version control ([GitHub.com](https://github.com)) [https://github.com/sturmf/regatta](https://github.com/sturmf/regatta)
+* Continues integration ([Travis-CI](https://travis-ci.org)) [https://travis-ci.org/sturmf/regatta](https://travis-ci.org/sturmf/regatta)
+* Test coverage ([Coveralls.io](https://coveralls.io)) [https://coveralls.io/github/sturmf/regatta](https://coveralls.io/github/sturmf/regatta)
+* Code review ([ReviewBoard](https://www.reviewboard.org)) [http://reviewboard.rtfs.org](http://reviewboard.rtfs.org)
+* Code review ([GerritHub.io](http://gerrithub.io)) [https://review.gerrithub.io](https://review.gerrithub.io/#/admin/projects/sturmf/regatta,dashboards)
+* Planing and issue tracking ([JIRA Software](https://www.atlassian.com/software/jira)) [https://regatta.atlassian.net](https://regatta.atlassian.net)
+* Documentation ([JIRA Confluence](https://www.atlassian.com/software/confluence)) [https://regatta.atlassian.net/wiki/](https://regatta.atlassian.net/wiki/)
 
+The following tools are still open and not integrated 
+* Style guide checking ([flake8](https://pypi.python.org/pypi/flake8)) this seems to combine pep8 and pyflakes
+* Style guide checking ([PEP 0008](https://www.python.org/dev/peps/pep-0008/))
+* Style guide checking ([pyflakes](https://pypi.python.org/pypi/pyflakes))
+* Style guide and code checker ([Pylint](http://www.pylint.org/))
 
 # Contributions from non team members
 
