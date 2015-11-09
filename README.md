@@ -1,15 +1,15 @@
 regatta
 =======
 
-A simple sailing race scoring program
+A simple sailing race scoring program.
 
 [![Build Status](https://travis-ci.org/sturmf/regatta.svg?branch=master)](https://travis-ci.org/sturmf/regatta)
 [![Coverage Status](https://coveralls.io/repos/sturmf/regatta/badge.svg?branch=master&service=github)](https://coveralls.io/github/sturmf/regatta?branch=master)
 [Reviews](http://reviewboard.rtfs.org/)
 
-This program is just begining its development, so don't expect a working version any time soon.
+This program is just beginning its development, so don't expect a working version any time soon.
 
-The main goal of this project is to learn about the state of the art development tools and workflows while still producing something usefull.
+The main goal of this project is to learn about the state of the art development tools and workflows while still producing something useful.
 
 This means especially using the following:
 
