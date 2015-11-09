@@ -7,9 +7,11 @@ python:
 install: 
   - pip install -r requirements.txt
   - pip install coveralls
+  - pip install flake8
 
 script:
   coverage run --source=regatta -m py.test
+  flake8
 
 after_success:
   coveralls
