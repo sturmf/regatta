@@ -9,9 +9,11 @@ install:
   - pip install coveralls
   - pip install flake8
 
+before_script:
+  - flake8
+
 script:
-  coverage run --source=regatta -m py.test
-  flake8
+  - coverage run --source=regatta -m py.test
 
 after_success:
-  coveralls
+  - coveralls
