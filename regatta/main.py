@@ -1,6 +1,5 @@
 def main():
-   print('hello world')
-   print('rb test')
+    print('hello world')
 
 if __name__ == "__main__":
     main()
