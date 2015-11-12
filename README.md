@@ -17,7 +17,6 @@ This means especially using the following:
 * Continues integration ([Travis-CI](https://travis-ci.org)) [https://travis-ci.org/sturmf/regatta](https://travis-ci.org/sturmf/regatta)
 * Test coverage ([Coveralls.io](https://coveralls.io)) [https://coveralls.io/github/sturmf/regatta](https://coveralls.io/github/sturmf/regatta)
 * Code review ([ReviewBoard](https://www.reviewboard.org)) [http://reviewboard.rtfs.org](http://reviewboard.rtfs.org)
-* Code review ([GerritHub.io](http://gerrithub.io)) [https://review.gerrithub.io](https://review.gerrithub.io/#/admin/projects/sturmf/regatta,dashboards)
 * Planing and issue tracking ([JIRA Software](https://www.atlassian.com/software/jira)) [https://regatta.atlassian.net](https://regatta.atlassian.net)
 * Documentation ([JIRA Confluence](https://www.atlassian.com/software/confluence)) [https://regatta.atlassian.net/wiki](https://regatta.atlassian.net/wiki)
 
