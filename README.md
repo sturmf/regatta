@@ -20,7 +20,7 @@ This means especially using the following:
 * Code review ([ReviewBoard](https://www.reviewboard.org)) [http://reviewboard.rtfs.org](http://reviewboard.rtfs.org)
 * Planing and issue tracking ([JIRA Software](https://www.atlassian.com/software/jira)) [https://regatta.atlassian.net](https://regatta.atlassian.net)
 * Documentation ([JIRA Confluence](https://www.atlassian.com/software/confluence)) [https://regatta.atlassian.net/wiki](https://regatta.atlassian.net/wiki)
-* Code smells ([Landscape.io](https://landscape.io)) [PEP 0008](https://www.python.org/dev/peps/pep-0008) and [Pylint](http://www.pylint.org)
+* Code smells ([Landscape.io](https://landscape.io)) [https://landscape.io/github/sturmf/regatta/](https://landscape.io/github/sturmf/regatta/)
 * Style guide checking ([flake8](https://pypi.python.org/pypi/flake8)) this combines [PEP 0008](https://www.python.org/dev/peps/pep-0008) and [pyflakes](https://pypi.python.org/pypi/pyflakes)
 
 
