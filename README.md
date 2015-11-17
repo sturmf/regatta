@@ -18,14 +18,14 @@ This means especially using the following:
 * Continues integration ([Travis-CI](https://travis-ci.org)) [https://travis-ci.org/sturmf/regatta](https://travis-ci.org/sturmf/regatta)
 * Test coverage ([Coveralls.io](https://coveralls.io)) [https://coveralls.io/github/sturmf/regatta](https://coveralls.io/github/sturmf/regatta)
 * Code review ([ReviewBoard](https://www.reviewboard.org)) [http://reviewboard.rtfs.org](http://reviewboard.rtfs.org)
-* Planing and issue tracking ([JIRA Software](https://www.atlassian.com/software/jira)) [https://regatta.atlassian.net](https://regatta.atlassian.net)
-* Documentation ([JIRA Confluence](https://www.atlassian.com/software/confluence)) [https://regatta.atlassian.net/wiki](https://regatta.atlassian.net/wiki)
 * Code smells ([Landscape.io](https://landscape.io)) [https://landscape.io/github/sturmf/regatta/](https://landscape.io/github/sturmf/regatta/)
 * Style guide checking ([flake8](https://pypi.python.org/pypi/flake8)) this combines [PEP 0008](https://www.python.org/dev/peps/pep-0008) and [pyflakes](https://pypi.python.org/pypi/pyflakes)
+* Planing and issue tracking ([JIRA Software](https://www.atlassian.com/software/jira)) [https://regatta.atlassian.net](https://regatta.atlassian.net)
+* Documentation ([JIRA Confluence](https://www.atlassian.com/software/confluence)) [https://regatta.atlassian.net/wiki](https://regatta.atlassian.net/wiki)
 
 
 # Contributions from non team members
 
-Feel free to clone the repository on github and submit a pull request. You can also create a revieboard review request which we will try to complete asap.
+Feel free to clone the repository on github and submit a pull request. You can also create a reviewboard review request which we will try to complete asap.
 
 
