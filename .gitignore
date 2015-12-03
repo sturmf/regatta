@@ -55,3 +55,30 @@ docs/_build/
 
 # PyBuilder
 target/
+
+
+# IntelliJ specific stuff
+
+# User-specific stuff:
+*/.idea/workspace.xml
+*/.idea/tasks.xml
+*/.idea/dictionaries
+*/.idea/shelf
+
+# Sensitive or high-churn files:
+*/.idea/dataSources.ids
+*/.idea/dataSources.xml
+*/.idea/sqlDataSources.xml
+*/.idea/dynamic.xml
+*/.idea/uiDesigner.xml
+
+## Intellij plugin-specific files:
+
+# IntelliJ
+/out/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+
+
