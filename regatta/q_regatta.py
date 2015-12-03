@@ -1,5 +1,5 @@
 from enum import Enum
-from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject, Q_ENUMS
+from PyQt5.QtCore import pyqtProperty, pyqtSignal, QObject
 
 
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
@@ -7,14 +7,14 @@ class QRegatta(QObject):
 
     class Modus(Enum):
         Yardstick, Class = range(2)
-    
+
     def __init__(self, parent=None):
         super().__init__(parent)
 
         # Initialise the value of the properties.
         self._name = 'test2'
         self._modus = QRegatta.Modus.Yardstick
-        
+
     # All signals
     nameChanged = pyqtSignal()
     modusChanged = pyqtSignal()
@@ -24,7 +24,6 @@ class QRegatta(QObject):
         return [modus.name for modus in QRegatta.Modus]
 
     # The name property
-    nameChanged = pyqtSignal()
 
     @pyqtProperty('QString', notify=nameChanged)
     def name(self):
@@ -38,7 +37,6 @@ class QRegatta(QObject):
             self.nameChanged.emit()
 
     # The modus property
-    modusChanged = pyqtSignal()
 
     @pyqtProperty('QString', notify=modusChanged)
     def modus(self):

@@ -10,7 +10,7 @@ install:
   - pip install flake8
 
 before_script:
-  - flake8 regatta
+  - flake8 --max-line-length=120 regatta
 
 script:
   - coverage run --source=regatta -m py.test

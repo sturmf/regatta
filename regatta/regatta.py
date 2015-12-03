@@ -1,5 +1,5 @@
 
-class Regatta(object): # FIXME rename to RegattaModel and file to regatta_model
+class Regatta(object):  # FIXME rename to RegattaModel and file to regatta_model
 
     def __init__(self, dbid=None):
         self.dbid = 1
