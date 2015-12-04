@@ -1,1 +1,3 @@
-__all__ = ['regatta']
+from .regatta import Regatta
+
+__all__ = ['Regatta']
