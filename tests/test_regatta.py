@@ -1,5 +1,5 @@
 import pytest
-from regatta import Regatta
+from regatta.regatta import Regatta
 
 def test_regatta_name():
     name = 'Bayerische Jugendwoche'

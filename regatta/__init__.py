@@ -1,2 +1,1 @@
-# __all__ = ['regatta']
-# from regatta import *
+__all__ = ['regatta']
