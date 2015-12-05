@@ -1,0 +1,4 @@
+REVIEWBOARD_URL = "http://reviewboard.rtfs.org"
+REPOSITORY = "regatta"
+BRANCH = "master"
+LAND_DEST_BRANCH = "master"
