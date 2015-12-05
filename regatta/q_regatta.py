@@ -6,7 +6,7 @@ from regatta import Regatta
 class QRegatta(QObject):
 
     def __init__(self, parent=None):
-        super(QRegatta, self).__init__(parent)
+        QObject.__init__(self, parent)
         self._filename = None
         self._regatta = None
 
