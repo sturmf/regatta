@@ -12,7 +12,8 @@ osname = os.name.lower()
 sysplatform = sys.platform.lower()
 windows = os.name.lower() == "nt" and sysplatform.startswith("win")
 
-QtQml.qmlRegisterType(QRegatta, 'Regatta', 1, 0, 'Regatta')
+# PyQt class name, QML URI, major version, minor version, QML type name
+QtQml.qmlRegisterType(QRegatta, 'QRegatta', 1, 0, 'QRegatta')
 
 app = QtWidgets.QApplication(sys.argv)
 
@@ -30,6 +31,7 @@ qmlFile = QtCore.QUrl("file:///" + mainFilepath)
 component.loadUrl(qmlFile)
 topLevelItem = component.create()
 
+# Now run the main loop until the user closes the application
 topLevelItem.show()
 sys.exit(app.exec_())
 

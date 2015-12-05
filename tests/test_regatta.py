@@ -1,28 +1,22 @@
 import pytest
 from regatta import Regatta
 
+# FIXME: this is open for discussion, I put more tests in a single unit test, since they all need the same setup
 def test_regatta_name():
     name = 'Bayerische Jugendwoche'
+
+    # Test default value
     regatta = Regatta()
+    assert(regatta.name == '')
+
+    # Test value acceptance
     regatta.name = name
     assert(regatta.name==name)
 
-
-def test_empty_regatta_name():
-    regatta = Regatta()
-    assert(regatta.name=='')
-
-
-def test_regatta_persistency():
-    # Create object
-    name = 'Bayerische Jugendwoche'
-    regatta = Regatta()
-    regatta.name = name
-    regatta_dbid = regatta.dbid
+    # Test persistency
+    filename = 'test.reg'
+    regatta.save(filename)
     regatta = None
-
-    # Load object
-    regatta = Regatta(regatta_dbid)
-    assert(regatta.name==name)
- 
-
+    # reload regatta
+    regatta = Regatta(filename)
+    assert(regatta.name == name)

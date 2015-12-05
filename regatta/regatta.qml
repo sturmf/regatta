@@ -2,20 +2,25 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
-import Regatta 1.0
+import QRegatta 1.0
 
-    
+
 TabView {
     id: tabView
-     
+
+    property string filename: ""
+
     anchors.fill: parent
     /*
     anchors.margins: UI.margin
     tabPosition: UI.tabPosition
     */
 
-    Regatta {
+    // This is our python QRegatta object
+    // connect it's inner filename property with the TabView filename
+    QRegatta {
         id: regatta
+        filename: tabView.filename
     }
 
     Tab {
@@ -26,7 +31,7 @@ TabView {
             rows: 2
             flow: GridLayout.TopToBottom
             anchors.fill: parent
-            
+
             Label { text: "Title" }
             Label { text: "Modus" }
 
@@ -42,9 +47,9 @@ TabView {
 
 
         }
-         
+
     }
-    
+
     Tab {
         title: "Participants"
     }
