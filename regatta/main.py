@@ -29,7 +29,16 @@ if windows:
     mainFilepath = mainFilepath.replace('\\', '/')
 qmlFile = QtCore.QUrl("file:///" + mainFilepath)
 component.loadUrl(qmlFile)
+if component.status() != QtQml.QQmlComponent.Ready:
+    for error in component.errors():
+        print(error.toString())
+    sys.exit(-1)
+
 topLevelItem = component.create()
+if not topLevelItem:
+    for error in component.errors():
+        print(error.toString())
+    sys.exit(-1)
 
 # Now run the main loop until the user closes the application
 topLevelItem.show()
