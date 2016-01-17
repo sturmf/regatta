@@ -24,6 +24,21 @@ This means especially using the following:
 * Documentation ([JIRA Confluence](https://www.atlassian.com/software/confluence)) [https://regatta.atlassian.net/wiki](https://regatta.atlassian.net/wiki)
 
 
+# Running the program
+
+To run the program execute
+
+    cd regatta && python3 main.py
+
+To run the style guide checks run
+
+    flake8 regatta
+
+To run the tests execute
+
+    PYTHONPATH=. py.test-3
+
+
 # Contributions from non team members
 
 Feel free to clone the repository on github and submit a pull request. You can also create a reviewboard review request which we will try to complete asap.
