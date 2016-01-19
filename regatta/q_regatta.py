@@ -29,11 +29,11 @@ class QRegatta(QObject):
 
     @filename.setter
     def filename(self, filename):
-        if self._filename != filename:
+        if filename and self._filename != filename:
+            print('filename changed to %s' % self._filename)
             self._filename = filename
             # create a new Regatta instance with the filename
-            self._regatta = Regatta(filename)
-            print('filename changed to %s' % self._filename)
+            self._regatta = Regatta.load_or_create_regatta(filename)
             # We just created a new Regatta instance, invalidate all properties
             self.filenameChanged.emit()
             self.nameChanged.emit()
@@ -56,11 +56,11 @@ class QRegatta(QObject):
 
     @pyqtProperty('QString', notify=modusChanged)
     def modus(self):
-        return str(self._regatta.modus.value)
+        return str(Regatta.Modus[self._regatta.modus].value)
 
     @modus.setter
     def modus(self, modus):
         print('modus changed to %s' % modus)
-        if self._regatta.modus.value != int(modus):
-            self._regatta.modus = Regatta.Modus(int(modus))
+        if self._regatta.modus != Regatta.Modus(int(modus)).name:
+            self._regatta.modus = Regatta.Modus(int(modus)).name
             self.modusChanged.emit()
