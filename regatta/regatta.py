@@ -17,7 +17,7 @@ class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
     def load_or_create_regatta(cls, filename, overwrite=False):
         # Sanity check
         url = urlparse(filename)
-        if len(url.path) < 4: # FIXME: rest after / must be longer
+        if len(url.path) < 4:  # FIXME: rest after / must be longer
             raise ValueError('Too short database name')
 
         # Delete already existing database file in overwrite mode
