@@ -38,6 +38,10 @@ To run the tests execute
 
     PYTHONPATH=. py.test-3
 
+To create the documentation run
+
+    cd doc && PYTHONPATH=.. make html
+
 
 # Contributions from non team members
 
