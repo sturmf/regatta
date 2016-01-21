@@ -8,8 +8,6 @@ import QRegatta 1.0
 TabView {
     id: tabView
 
-    property string filename: ""
-
     anchors.fill: parent
     /*
     anchors.margins: UI.margin
@@ -20,7 +18,7 @@ TabView {
     // connect it's inner filename property with the TabView filename
     QRegatta {
         id: regatta
-        filename: tabView.filename
+        filename: mainWindow.filename
     }
 
     Tab {
@@ -44,7 +42,6 @@ TabView {
                 currentIndex: regatta.modus
                 onCurrentIndexChanged: regatta.modus = currentIndex
             }
-
 
         }
 

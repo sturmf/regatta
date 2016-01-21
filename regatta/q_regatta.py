@@ -29,11 +29,11 @@ class QRegatta(QObject):
 
     @filename.setter
     def filename(self, filename):
+        print('filename change request to %s' % filename)
         if filename and self._filename != filename:
-            print('filename changed to %s' % self._filename)
             self._filename = filename
             # create a new Regatta instance with the filename
-            self._regatta = Regatta.load_or_create_regatta(filename)
+            self._regatta = Regatta.load_or_create_regatta(self._filename)
             # We just created a new Regatta instance, invalidate all properties
             self.filenameChanged.emit()
             self.nameChanged.emit()

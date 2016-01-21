@@ -34,7 +34,6 @@ ApplicationWindow {
         }
     }
 
-
     FileDialog {
         id: fileOpenDialog
         title: "Please choose a file"
@@ -44,23 +43,9 @@ ApplicationWindow {
         }
     }
 
-
     Loader {
         anchors.fill: parent
         id: pageLoader
-
-        // Since the python object just got instantiated from the loader, we have to reconnect the binding
-        onLoaded: {
-            binder.target = pageLoader.item;
-        }
-    }
-
-    // This binding is used to update the python objects filename property with the mainWindows property
-    // See: http://doc.qt.io/qt-5/qml-qtqml-binding.html
-    Binding {
-        id: binder
-        property: "filename"
-        value: filename
     }
 
 }
