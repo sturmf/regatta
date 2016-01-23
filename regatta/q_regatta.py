@@ -1,4 +1,4 @@
-from PyQt5.QtCore import pyqtProperty, pyqtSignal, QObject
+from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
 from regatta import Regatta
 
 
@@ -64,3 +64,7 @@ class QRegatta(QObject):
         if self._regatta.modus != Regatta.Modus(int(modus)).name:
             self._regatta.modus = Regatta.Modus(int(modus)).name
             self.modusChanged.emit()
+
+    @pyqtSlot()
+    def save(self):
+        self._regatta.save()

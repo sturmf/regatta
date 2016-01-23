@@ -31,6 +31,10 @@ ApplicationWindow {
                 shortcut: StandardKey.Quit
                 onTriggered: Qt.quit()
             }
+            MenuItem {
+                text: "&Save"
+                onTriggered: pageLoader.item.regatta.save()
+            }
         }
     }
 

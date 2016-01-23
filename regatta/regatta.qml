@@ -14,8 +14,11 @@ TabView {
     tabPosition: UI.tabPosition
     */
 
+    // Export the child element
+    property alias regatta: regatta
+
     // This is our python QRegatta object
-    // connect it's inner filename property with the TabView filename
+    // connect it's inner filename property with the mainWindow filename
     QRegatta {
         id: regatta
         filename: mainWindow.filename
