@@ -1,5 +1,5 @@
 import os
-from PyQt5.QtCore import QAbstractListModel, QModelIndex, Qt, QUrl, QVariant
+from PyQt5.QtCore import QAbstractListModel, QModelIndex, Qt, QVariant
 
 
 # FIXME: do we really nees an own class
@@ -31,7 +31,8 @@ class RegattaItemModel(QAbstractListModel):
     def __init__(self, parent=None):
         super(RegattaItemModel, self).__init__(parent)
         # Find all files ending in ".rgs" and create Regatta objects out of them
-        self._regattas = [Regatta(os.path.splitext(os.path.basename(f))[0], f) for f in os.listdir('.') if f.endswith('.rgs')]
+        regattas = [f for f in os.listdir('.') if f.endswith('.rgs')]
+        self._regattas = [Regatta(os.path.splitext(os.path.basename(r))[0], r) for r in regattas]
 
     # FIXME: unused, keep it for now
     def addRegatta(self, regatta):
@@ -58,6 +59,3 @@ class RegattaItemModel(QAbstractListModel):
 
     def roleNames(self):
         return self._roles
-
-
-

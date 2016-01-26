@@ -40,7 +40,7 @@ To run the tests execute
 
 To create the documentation run
 
-    cd doc && PYTHONPATH=.. make html
+    cd docs && PYTHONPATH=.. make html
 
 
 # Contributions from non team members
