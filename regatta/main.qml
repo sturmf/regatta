@@ -3,7 +3,8 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.2
 import "main.js" as Main
-
+import "OpenDialog"
+import RegattaItemModel 1.0
 
 ApplicationWindow {
 
@@ -20,36 +21,31 @@ ApplicationWindow {
             title: "&Regatta"
             MenuItem {
                 text: "&New"
-                onTriggered: Main.openFile(true)
+                onTriggered: openDialog.visible = true
             }
             MenuItem {
-                text: "&Open"
-                onTriggered: fileOpenDialog.visible = true
+                text: "&Save"
+                onTriggered: pageLoader.item.regatta.save()
             }
             MenuItem {
                 text: "E&xit"
                 shortcut: StandardKey.Quit
                 onTriggered: Qt.quit()
             }
-            MenuItem {
-                text: "&Save"
-                onTriggered: pageLoader.item.regatta.save()
-            }
-        }
-    }
-
-    FileDialog {
-        id: fileOpenDialog
-        title: "Please choose a file"
-        onAccepted: Main.openFile(false)
-        onRejected: {
-            console.log("Canceled")
         }
     }
 
     Loader {
         anchors.fill: parent
         id: pageLoader
+    }
+
+    OpenDialog {
+        id: openDialog
+        anchors.fill: parent
+        onNewRegatta: Main.newRegatta(name)
+        onOpenRegatta: Main.openRegatta(url)
+        listView.model: RegattaItemModel {}
     }
 
 }

@@ -1,19 +1,11 @@
+function newRegatta(name)  {
+    console.log("You chose new: " + name)
+    openRegatta(name + ".rgs")
+}
 
-function openFile(newfile) {
-    if (newfile == true) {
-        mainWindow.filename = ""
-    }
-    else {
-        if (fileOpenDialog.fileUrls.length > 0) {
-            mainWindow.filename = fileOpenDialog.fileUrls[0]
-        } else {
-            console.log("No file selected, should not happen on FileDialog.onAccepted")
-            return
-        }
-    }
-
-    console.log("You chose: " + mainWindow.filename)
-    pageLoader.source = "" // unload any previous contacts
+function openRegatta(url) {
+    console.log("You chose open: " + url)
+    mainWindow.filename = url
+    pageLoader.source = "" // unload any previous regatta
     pageLoader.source = "regatta.qml"
-
 }
