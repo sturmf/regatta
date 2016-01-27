@@ -20,7 +20,7 @@ ApplicationWindow {
         Menu {
             title: "&Regatta"
             MenuItem {
-                text: "&New"
+                text: "&Open"
                 onTriggered: openDialog.visible = true
             }
             MenuItem {
