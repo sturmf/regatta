@@ -36,9 +36,6 @@ class QRegatta(QObject):
             # create a new Regatta instance with the filename
             self._regatta = Regatta.load_or_create_regatta(self._filename)
             # We just created a new Regatta instance, invalidate all properties
-            self.filenameChanged.emit()
-            self.nameChanged.emit()
-            self.modusChanged.emit()
 
     # The name property
 

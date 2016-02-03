@@ -2,8 +2,6 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
-//import QRegatta 1.0
-
 
 TabView {
     id: tabView
@@ -15,15 +13,7 @@ TabView {
     */
 
     // Export the child element
-    //property alias regatta: regatta
     property var regatta
-
-    // This is our python QRegatta object
-    // connect it's inner filename property with the mainWindow filename
-    //QRegatta {
-    //    id: regatta
-    //    filename: mainWindow.filename
-    //}
 
     Tab {
         title: "Regatta"
@@ -48,7 +38,6 @@ TabView {
             }
 
         }
-
     }
 
     Tab {
