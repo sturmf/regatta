@@ -16,6 +16,24 @@ ApplicationWindow {
     color: "gray"
     Accessible.name: "Regatta"
 
+/*
+    // IconName does not work
+    toolBar: ToolBar {
+        RowLayout {
+            ToolButton {
+                text: "Open"
+                iconName: "open"
+                onClicked: openDialog.visible = true
+            }
+            ToolButton {
+                text: "Save"
+                iconName: "document-save"
+                onClicked: pageLoader.item.regatta.save()
+            }
+        }
+    }
+*/
+
     menuBar: MenuBar {
         Menu {
             title: "&Regatta"
