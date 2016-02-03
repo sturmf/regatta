@@ -6,6 +6,10 @@ function newRegatta(name)  {
 function openRegatta(url) {
     console.log("You chose open: " + url)
     mainWindow.filename = url
-    pageLoader.source = "" // unload any previous regatta
-    pageLoader.source = "regatta.qml"
+
+    // Here we first create a model instance with the given filename and then load the gui
+    var component = qRegattaFactory.createObject(mainWindow, {filename: mainWindow.filename})
+    pageLoader.setSource("regatta.qml", {regatta: component})
+
+
 }

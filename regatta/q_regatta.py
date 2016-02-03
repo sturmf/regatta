@@ -9,6 +9,7 @@ class QRegatta(QObject):
         QObject.__init__(self, parent)
         self._filename = None
         self._regatta = None
+        print("constructed")
 
     # All signals
     filenameChanged = pyqtSignal()

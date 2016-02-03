@@ -5,6 +5,9 @@ import QtQuick.Dialogs 1.2
 import "main.js" as Main
 import "OpenDialog"
 import RegattaItemModel 1.0
+import QRegatta 1.0
+
+
 
 ApplicationWindow {
 
@@ -48,4 +51,8 @@ ApplicationWindow {
         listView.model: RegattaItemModel {}
     }
 
+    Component {
+        id: qRegattaFactory
+        QRegatta {}
+    }
 }
