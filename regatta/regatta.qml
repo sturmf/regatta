@@ -6,13 +6,6 @@ import QtQuick.Controls 1.2
 TabView {
     id: tabView
 
-    anchors.fill: parent
-    /*
-    anchors.margins: UI.margin
-    tabPosition: UI.tabPosition
-    */
-
-    // Export the child element
     property var regatta
 
     Tab {
@@ -36,7 +29,6 @@ TabView {
                 currentIndex: regatta.modus
                 onCurrentIndexChanged: regatta.modus = currentIndex
             }
-
         }
     }
 

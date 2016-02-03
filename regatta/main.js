@@ -5,11 +5,11 @@ function newRegatta(name)  {
 
 function openRegatta(url) {
     console.log("You chose open: " + url)
-    mainWindow.filename = url
-
-    // Here we first create a model instance with the given filename and then load the gui
-    var component = qRegattaFactory.createObject(mainWindow, {filename: mainWindow.filename})
+    // Here we first create a model instance with the given url and then load the gui
+    // There are two reasons for this, one is that we want to have a fully constructed
+    // model before the gui reads out properties, the other is that we don't want to
+    // have the model imported in the gui or it otherwise couldn't be loaded in qtcreator
+    // anymore
+    var component = qRegattaFactory.createObject(mainWindow, {filename: url})
     pageLoader.setSource("regatta.qml", {regatta: component})
-
-
 }

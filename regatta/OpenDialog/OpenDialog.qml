@@ -4,10 +4,6 @@ import QtQuick.Layouts 1.0
 
 Rectangle {
     id: root
-    //width: parent.width
-    //height: parent.height
-    width: 800
-    height: 600
 
     signal newRegatta(string name)
     signal openRegatta(string url)
@@ -99,6 +95,7 @@ Rectangle {
             }
         }
 
+        // This is necessary for dummyData to work
         model: regattas
     }
 }

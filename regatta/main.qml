@@ -8,7 +8,6 @@ import RegattaItemModel 1.0
 import QRegatta 1.0
 
 
-
 ApplicationWindow {
 
     id: mainWindow
@@ -16,8 +15,6 @@ ApplicationWindow {
     width: 800; height: 600
     color: "gray"
     Accessible.name: "Regatta"
-
-    property string filename: ""
 
     menuBar: MenuBar {
         Menu {
