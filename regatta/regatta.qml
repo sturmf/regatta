@@ -9,34 +9,105 @@ TabView {
     property var regatta
 
     Tab {
-        anchors.rightMargin: 5
-        anchors.leftMargin: 5
-        anchors.bottomMargin: 5
-        anchors.topMargin: 5
+        anchors.margins: 5
         title: "Regatta"
 
         GridLayout {
             id: gridLayout
-            rows: 3
-            flow: GridLayout.TopToBottom
+            columns: 4
+            flow: GridLayout.LeftToRight
             anchors.fill: parent
 
             Label { text: "Title" }
-            Label { text: "Modus" }
-            Label { text: "Date" }
-
             TextField {
                 text: regatta.name
                 onEditingFinished: regatta.name = text
+                Layout.columnSpan: 3
+                Layout.fillWidth: true
             }
+
+
+            Label { text: "Modus" }
             ComboBox {
                 model: regatta.modes
                 currentIndex: regatta.modus
                 onCurrentIndexChanged: regatta.modus = currentIndex
-            }
-            DatePicker {
+                Layout.columnSpan: 3
+                Layout.fillWidth: true
             }
 
+
+            Label { text: "Date" }
+            DatePicker {
+                Layout.fillWidth: true
+            }
+            Label { text: "until" }
+            DatePicker {
+                Layout.fillWidth: true
+            }
+
+
+            Label { text: "Race count" }
+            SpinBox {
+                Layout.fillWidth: true
+            }
+            Label { text: "unrated on" }
+            TextField {
+                placeholderText: "E.g. 5,7,10"
+                Layout.fillWidth: true
+            }
+
+
+            Label { text: "Organizer" }
+            RowLayout {
+                Layout.columnSpan: 3
+                Layout.fillWidth: true
+                ComboBox {
+                    Layout.columnSpan: 2
+                    Layout.fillWidth: true
+                }
+                Button {
+                    text: "+"
+                }
+            }
+
+
+            Label { text: "Race committee" }
+            RowLayout {
+                Layout.columnSpan: 3
+                Layout.fillWidth: true
+                ComboBox {
+                    Layout.columnSpan: 2
+                    Layout.fillWidth: true
+                }
+                Button {
+                    text: "+"
+                }
+            }
+
+
+            Label { text: "Umpire" }
+            RowLayout {
+                Layout.columnSpan: 3
+                Layout.fillWidth: true
+                ComboBox {
+                    Layout.fillWidth: true
+                }
+                Button {
+                    text: "+"
+                }
+            }
+
+
+            Label {
+                text: "Assistants"
+                anchors.top: parent.top
+            }
+            ListView {
+                Layout.columnSpan: 3
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
         }
     }
 

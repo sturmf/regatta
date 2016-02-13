@@ -4,7 +4,6 @@ import QtQuick.Layouts 1.1
 import QtQuick.Window 2.1
 
 Item {
-    width: dateField.width
     height: dateField.height
 
     property date selectedDate : new Date()
@@ -14,6 +13,7 @@ Item {
 
     TextField {
         id: dateField
+        width: parent.width
         readOnly: true
         MouseArea {
             anchors.fill: parent
