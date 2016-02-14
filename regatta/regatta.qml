@@ -41,7 +41,10 @@ TabView {
             DatePicker {
                 Layout.fillWidth: true
             }
-            Label { text: "until" }
+            Label {
+                text: "until"
+                Layout.alignment: Qt.AlignHCenter
+            }
             DatePicker {
                 Layout.fillWidth: true
             }
@@ -52,7 +55,10 @@ TabView {
                 Layout.minimumWidth: 100
                 Layout.fillWidth: true
             }
-            Label { text: "unrated on" }
+            Label {
+                text: "unrated on"
+                Layout.alignment: Qt.AlignHCenter
+            }
             TextField {
                 placeholderText: "E.g. 5,7,10"
                 Layout.minimumWidth: 100
