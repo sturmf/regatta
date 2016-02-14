@@ -101,12 +101,36 @@ TabView {
 
             Label {
                 text: "Assistants"
-                Layout.fillHeight: true
             }
-            ListView {
+            RowLayout {
+                Layout.columnSpan: 3
+                Layout.fillWidth: true
+                ComboBox {
+                    Layout.fillWidth: true
+                }
+                Button {
+                    text: "Add"
+                }
+                Button {
+                    text: "+"
+                }
+            }
+
+
+            Label {}
+            ScrollView {
+                verticalScrollBarPolicy: Qt.ScrollBarAlwaysOn
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                width: 100
+                frameVisible: true
+                ListView {
+                    delegate: Text {
+                            text: name
+                    }
+                    model: assistants
+                }
             }
         }
     }
