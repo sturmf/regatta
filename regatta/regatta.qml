@@ -49,11 +49,13 @@ TabView {
 
             Label { text: "Race count" }
             SpinBox {
+                Layout.minimumWidth: 100
                 Layout.fillWidth: true
             }
             Label { text: "unrated on" }
             TextField {
                 placeholderText: "E.g. 5,7,10"
+                Layout.minimumWidth: 100
                 Layout.fillWidth: true
             }
 
@@ -119,12 +121,11 @@ TabView {
 
             Label {}
             ScrollView {
-                verticalScrollBarPolicy: Qt.ScrollBarAlwaysOn
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                width: 100
                 frameVisible: true
+                verticalScrollBarPolicy: Qt.ScrollBarAlwaysOn
                 ListView {
                     delegate: Text {
                             text: name
