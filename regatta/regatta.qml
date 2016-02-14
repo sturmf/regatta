@@ -101,7 +101,7 @@ TabView {
 
             Label {
                 text: "Assistants"
-                anchors.top: parent.top
+                Layout.fillHeight: true
             }
             ListView {
                 Layout.columnSpan: 3
