@@ -126,19 +126,17 @@ TabView {
 
 
             Label {}
-            ScrollView {
+            TableView {
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                frameVisible: true
-                verticalScrollBarPolicy: Qt.ScrollBarAlwaysOn
-                ListView {
-                    delegate: Text {
-                            text: name
-                    }
-                    model: assistants
+                TableViewColumn {
+                    role: "name"
+                    title: "Name"
                 }
+                model: assistants
             }
+
         }
     }
 
