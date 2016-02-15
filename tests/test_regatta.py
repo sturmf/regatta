@@ -9,7 +9,7 @@ def test_regatta_name():
 
     # Test default value
     regatta = Regatta.load_or_create_regatta(filename, overwrite=True)
-    assert(regatta.name == '')
+    assert(regatta.name == 'test')
 
     # Test value acceptance
     regatta.name = name
