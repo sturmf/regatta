@@ -1,7 +1,8 @@
+import datetime
 import enum
 import os
 from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String, Enum
+from sqlalchemy import Column, Integer, String, Enum, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from urllib.parse import urlparse
@@ -34,6 +35,7 @@ class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
         regatta = Regatta.session.query(Regatta).first()
         if not regatta:
             regatta = Regatta()
+            regatta.name = os.path.splitext(filename)[0]
             Regatta.session.add(regatta)
             Regatta.session.commit()
         return regatta
@@ -44,6 +46,7 @@ class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False, default='')
     modus = Column(Enum(*[x.name for x in Modus], name='modus_types'), default=Modus.Class.name)
+    start_date = Column(Date, default=datetime.datetime.utcnow)
 
     def __init__(self):
         pass

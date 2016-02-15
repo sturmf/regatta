@@ -5,6 +5,7 @@ from regatta import Regatta
 def test_regatta_name():
     filename = 'test.reg'
     name = 'Bayerische Jugendwoche'
+    # FIXME: add modus, start_date
 
     # Test default value
     regatta = Regatta.load_or_create_regatta(filename, overwrite=True)

@@ -11,16 +11,18 @@ Item {
     property Window activeWindow
     property var pos : getOffset(dateField)
 
+    signal dateChanged (date date)
+
     TextField {
         id: dateField
         width: parent.width
         readOnly: true
+        text: selectedDate.toLocaleDateString(Qt.locale(), selectedDateFormat)
         MouseArea {
             anchors.fill: parent
             onClicked:{ toggleModal() }
         }
     }
-
 
     function getOffset(item) {
         var offset = {
@@ -44,6 +46,7 @@ Item {
         }
         else {
             console.log("show calendar")
+            calendar.selectedDate = selectedDate
             modal.show()
             modal.requestActivate()
             calendar.focus = true
@@ -55,8 +58,7 @@ Item {
         if (newDate instanceof Date) {
             selectedDate = newDate;
             calendar.selectedDate = selectedDate;
-            dateField.text = selectedDate.toLocaleDateString(Qt.locale(), selectedDateFormat)
-            //dateChanged(newDate);
+            dateChanged(newDate);
         }
         else {
             calendar.selectedDate.setDate(selectedDate.getDate());

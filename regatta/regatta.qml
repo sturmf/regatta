@@ -40,6 +40,8 @@ TabView {
             Label { text: "Date" }
             DatePicker {
                 Layout.fillWidth: true
+                selectedDate: regatta.start_date
+                onDateChanged: regatta.start_date = date
             }
             Label {
                 text: "until"

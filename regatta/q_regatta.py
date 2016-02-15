@@ -15,6 +15,7 @@ class QRegatta(QObject):
     filenameChanged = pyqtSignal()
     nameChanged = pyqtSignal()
     modusChanged = pyqtSignal()
+    startDateChanged = pyqtSignal()
 
     # The modes static list
 
@@ -30,8 +31,8 @@ class QRegatta(QObject):
 
     @filename.setter
     def filename(self, filename):
-        print('filename change request to %s' % filename)
         if filename and self._filename != filename:
+            print('filename changed to %s' % filename)
             self._filename = filename
             # create a new Regatta instance with the filename
             self._regatta = Regatta.load_or_create_regatta(self._filename)
@@ -45,8 +46,8 @@ class QRegatta(QObject):
 
     @name.setter
     def name(self, name):
-        print('name changed to %s' % name)
         if self._regatta.name != name:
+            print('name changed to %s' % name)
             self._regatta.name = name
             self.nameChanged.emit()
 
@@ -58,10 +59,24 @@ class QRegatta(QObject):
 
     @modus.setter
     def modus(self, modus):
-        print('modus changed to %s' % modus)
         if self._regatta.modus != Regatta.Modus(int(modus)).name:
+            print('modus changed to %s' % modus)
             self._regatta.modus = Regatta.Modus(int(modus)).name
             self.modusChanged.emit()
+
+    # The start_date property
+
+    @pyqtProperty('QDate', notify=startDateChanged)
+    def start_date(self):
+        return self._regatta.start_date
+
+    @start_date.setter
+    def start_date(self, start_date):
+        if self._regatta.start_date != start_date.toPyDate():
+            print('start_date changed to %s' % start_date)
+            self._regatta.start_date = start_date.toPyDate()
+            self.startDateChanged.emit()
+
 
     @pyqtSlot()
     def save(self):
