@@ -48,6 +48,7 @@ class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
     modus = Column(Enum(*[x.name for x in Modus], name='modus_types'), default=Modus.Class.name)
     start_date = Column(Date, default=datetime.datetime.utcnow)
     end_date = Column(Date, default=datetime.datetime.utcnow)
+    race_count = Column(Integer, default=1)
 
     def __init__(self):
         pass

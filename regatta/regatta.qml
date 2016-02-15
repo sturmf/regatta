@@ -21,7 +21,7 @@ TabView {
             Label { text: "Title" }
             TextField {
                 text: regatta.name
-                onEditingFinished: regatta.name = text
+                onTextChanged: regatta.name = text
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
             }
@@ -58,6 +58,8 @@ TabView {
             SpinBox {
                 Layout.minimumWidth: 100
                 Layout.fillWidth: true
+                value: regatta.race_count
+                onValueChanged: regatta.race_count = value
             }
             Label {
                 text: "unrated on"

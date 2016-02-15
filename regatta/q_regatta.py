@@ -17,6 +17,7 @@ class QRegatta(QObject):
     modusChanged = pyqtSignal()
     startDateChanged = pyqtSignal()
     endDateChanged = pyqtSignal()
+    raceCountChanged = pyqtSignal()
 
     # The modes static list
 
@@ -90,6 +91,21 @@ class QRegatta(QObject):
             print('end_date changed to %s' % end_date)
             self._regatta.end_date = end_date.toPyDate()
             self.endDateChanged.emit()
+
+    # The race_count property
+
+    @pyqtProperty('int', notify=raceCountChanged)
+    def race_count(self):
+        return self._regatta.race_count
+
+    @race_count.setter
+    def race_count(self, race_count):
+        if self._regatta.race_count != race_count:
+            print('race_count changed to %s' % race_count)
+            self._regatta.race_count = race_count
+            self.raceCountChanged.emit()
+
+
 
     @pyqtSlot()
     def save(self):
