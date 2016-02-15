@@ -49,6 +49,8 @@ TabView {
             }
             DatePicker {
                 Layout.fillWidth: true
+                selectedDate: regatta.end_date
+                onDateChanged: regatta.end_date = date
             }
 
 

@@ -16,6 +16,7 @@ class QRegatta(QObject):
     nameChanged = pyqtSignal()
     modusChanged = pyqtSignal()
     startDateChanged = pyqtSignal()
+    endDateChanged = pyqtSignal()
 
     # The modes static list
 
@@ -77,6 +78,18 @@ class QRegatta(QObject):
             self._regatta.start_date = start_date.toPyDate()
             self.startDateChanged.emit()
 
+    # The end_date property
+
+    @pyqtProperty('QDate', notify=endDateChanged)
+    def end_date(self):
+        return self._regatta.end_date
+
+    @end_date.setter
+    def end_date(self, end_date):
+        if self._regatta.end_date != end_date.toPyDate():
+            print('end_date changed to %s' % end_date)
+            self._regatta.end_date = end_date.toPyDate()
+            self.endDateChanged.emit()
 
     @pyqtSlot()
     def save(self):
