@@ -4,7 +4,7 @@ import sys
 from PyQt5 import QtCore, QtQml, QtWidgets
 
 from regattaitemmodel import RegattaItemModel
-from q_regatta import QRegatta
+from q_regatta import QRegatta, QPerson
 
 # Fixme: I have no idea why I can't put it in a method
 # def main():
@@ -16,6 +16,7 @@ windows = os.name.lower() == "nt" and sysplatform.startswith("win")
 # PyQt class name, QML URI, major version, minor version, QML type name
 QtQml.qmlRegisterType(RegattaItemModel, 'RegattaItemModel', 1, 0, 'RegattaItemModel')
 QtQml.qmlRegisterType(QRegatta, 'QRegatta', 1, 0, 'QRegatta')
+QtQml.qmlRegisterType(QPerson, 'QPerson', 1, 0, 'QPerson')
 
 app = QtWidgets.QApplication(sys.argv)
 

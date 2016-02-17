@@ -2,9 +2,9 @@ import datetime
 import enum
 import os
 from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String, Enum, Date
+from sqlalchemy import Column, Integer, String, Enum, Date, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
 from urllib.parse import urlparse
 
 # Here we create the database base type.
@@ -37,6 +37,11 @@ class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
             regatta = Regatta()
             regatta.name = os.path.splitext(filename)[0]
             Regatta.session.add(regatta)
+
+            organizer = Person(first_name='Peter', last_name='Parker')
+            regatta.organizer = organizer
+            Regatta.session.add(organizer)
+
             Regatta.session.commit()
         return regatta
 
@@ -49,6 +54,8 @@ class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
     start_date = Column(Date, default=datetime.datetime.utcnow)
     end_date = Column(Date, default=datetime.datetime.utcnow)
     race_count = Column(Integer, default=1)
+    organizer_id = Column(Integer, ForeignKey('person.id'))
+    organizer = relationship("Person")
 
     def __init__(self):
         pass
@@ -56,3 +63,11 @@ class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
     @classmethod
     def save(cls):
         Regatta.session.commit()
+
+
+class Person(Base):
+    __tablename__ = 'person'
+
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String, nullable=False, default='')
+    last_name = Column(String, nullable=False, default='')

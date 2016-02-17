@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 import "DatePicker"
 
+
 TabView {
     id: tabView
 
@@ -20,7 +21,7 @@ TabView {
 
             Label { text: "Title" }
             TextField {
-                text: regatta.name
+                text: regatta.name + regatta.organizer.first_name
                 onTextChanged: regatta.name = text
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
