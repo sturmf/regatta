@@ -14,8 +14,7 @@ Window {
         anchors.margins: 10
         SplitView {
             id: splitView1
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+            anchors.fill: parent
 
             ColumnLayout {
                 Layout.fillWidth: true
@@ -31,21 +30,26 @@ Window {
                         id: rowLayout1
                         anchors.left: parent.left
                         anchors.right: parent.right
+
                         TextField {
                             height: 20
                             anchors.right: addButton.left
                             anchors.rightMargin: 5
                             anchors.left: parent.left
-                            anchors.leftMargin: 0
                             placeholderText: "Search"
                             Layout.fillWidth: true
                         }
                         Button {
                             id: addButton
-                            anchors.right: parent.right
-                            iconSource: "icons/List-add.svg.png"
+                            anchors.right: removeButton.left
+                            anchors.rightMargin: 5
+                            iconSource: "icons/ic_add_black_18px.svg"
                         }
-
+                        Button {
+                            id: removeButton
+                            anchors.right: parent.right
+                            iconSource: "icons/ic_delete_black_18px.svg"
+                        }
                     }
                     TableView {
                         anchors.top: rowLayout1.bottom
