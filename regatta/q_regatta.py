@@ -135,18 +135,13 @@ class QRegatta(QObject):
             self._regatta.race_count = race_count
             self.raceCountChanged.emit()
 
-
     # The organizer property
 
     @pyqtProperty(QSailingClub, notify=organizerChanged)
     def organizer(self):
         return self._organizer
-        #return self._regatta.organizer
-
-
+        # return self._regatta.organizer
 
     @pyqtSlot()
     def save(self):
         self._regatta.save()
-
-
