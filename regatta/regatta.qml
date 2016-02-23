@@ -10,12 +10,14 @@ TabView {
     property var regatta
 
     Tab {
-        anchors.margins: 5
+        anchors.margins: 10
         title: "Regatta"
 
         GridLayout {
             id: gridLayout
             columns: 4
+            columnSpacing: 10
+            rowSpacing: 10
             flow: GridLayout.LeftToRight
             anchors.fill: parent
 
@@ -77,12 +79,13 @@ TabView {
             RowLayout {
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
+                spacing: 10
                 ComboBox {
                     Layout.columnSpan: 2
                     Layout.fillWidth: true
                 }
                 Button {
-                    text: "+"
+                    iconSource: "icons/ic_create_black_18px.svg"
                 }
             }
 
@@ -91,12 +94,13 @@ TabView {
             RowLayout {
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
+                spacing: 10
                 ComboBox {
                     Layout.columnSpan: 2
                     Layout.fillWidth: true
                 }
                 Button {
-                    text: "+"
+                    iconSource: "icons/ic_create_black_18px.svg"
                 }
             }
 
@@ -105,45 +109,44 @@ TabView {
             RowLayout {
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
+                spacing: 10
                 ComboBox {
                     Layout.fillWidth: true
                 }
                 Button {
-                    text: "+"
+                    iconSource: "icons/ic_create_black_18px.svg"
                 }
             }
 
 
             Label {
+                Layout.alignment: Qt.AlignTop
                 text: "Assistants"
             }
             RowLayout {
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
-                ComboBox {
+                spacing: 10
+                TableView {
                     Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    TableViewColumn {
+                        role: "name"
+                        title: "Name"
+                    }
+                    model: assistants
                 }
-                Button {
-                    text: "Add"
-                }
-                Button {
-                    text: "+"
+                ColumnLayout {
+                    Layout.alignment: Qt.AlignTop
+                    spacing: 10
+                    Button {
+                        iconSource: "icons/ic_create_black_18px.svg"
+                    }
+                    Button {
+                        iconSource: "icons/ic_delete_black_18px.svg"
+                    }
                 }
             }
-
-
-            Label {}
-            TableView {
-                Layout.columnSpan: 3
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                TableViewColumn {
-                    role: "name"
-                    title: "Name"
-                }
-                model: assistants
-            }
-
         }
     }
 

@@ -21,6 +21,7 @@ Window {
                 ColumnLayout {
                     anchors.fill: parent
                     anchors.rightMargin: 15
+                    spacing: 10
 
                     Label {
                         text: qsTr("Available sailing clubs")
@@ -34,7 +35,7 @@ Window {
                         TextField {
                             height: 20
                             anchors.right: addButton.left
-                            anchors.rightMargin: 5
+                            anchors.rightMargin: 10
                             anchors.left: parent.left
                             placeholderText: "Search"
                             Layout.fillWidth: true
@@ -42,8 +43,8 @@ Window {
                         Button {
                             id: addButton
                             anchors.right: removeButton.left
-                            anchors.rightMargin: 5
-                            iconSource: "icons/ic_add_black_18px.svg"
+                            anchors.rightMargin: 10
+                            iconSource: "icons/ic_note_add_black_18px.svg"
                         }
                         Button {
                             id: removeButton
@@ -56,7 +57,7 @@ Window {
                         anchors.bottom: parent.bottom
                         anchors.right: parent.right
                         anchors.left: parent.left
-                        anchors.topMargin: 5
+                        anchors.topMargin: 10
                         Layout.fillHeight: true
                         TableViewColumn {
                             role: "name"
@@ -68,14 +69,13 @@ Window {
             }
 
             ColumnLayout {
-                width: root.width * 4 / 10 // approx. golden cut
+                width:  (root.width - 20 )/ 2
                 Layout.fillHeight: true
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
 
                 ColumnLayout {
                     anchors.fill: parent
-                    //anchors.margins: 5
                     anchors.leftMargin: 15
 
                     Label {
@@ -88,8 +88,10 @@ Window {
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.top: label1.bottom
-                        anchors.topMargin: 5
+                        anchors.topMargin: 10
                         columns: 2
+                        rowSpacing: 10
+                        columnSpacing: 10
 
                         Label {
                             text: "Name"
