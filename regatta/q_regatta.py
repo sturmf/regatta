@@ -3,6 +3,19 @@ from regatta import Regatta
 
 
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
+class QSailingClub(QObject):
+
+    def __init__(self, parent=None):
+        QObject.__init__(self, parent)
+        self._id = None
+        print("sailing_club constructed")
+
+    @pyqtProperty('QString')
+    def name(self):
+        return "sailing_club works"
+
+
+# This is the type that will be registered with QML. It must be a sub-class of QObject.
 class QPerson(QObject):
 
     def __init__(self, parent=None):
@@ -12,7 +25,7 @@ class QPerson(QObject):
 
     @pyqtProperty('QString')
     def first_name(self):
-        return "it works"
+        return "person works"
 
 
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
@@ -22,7 +35,8 @@ class QRegatta(QObject):
         QObject.__init__(self, parent)
         self._filename = None
         self._regatta = None
-        self._organizer = QPerson()
+        self._organizer = QSailingClub()
+        self._race_committee = QPerson()
         print("constructed")
 
     # All signals
@@ -33,6 +47,7 @@ class QRegatta(QObject):
     endDateChanged = pyqtSignal()
     raceCountChanged = pyqtSignal()
     organizerChanged = pyqtSignal()
+    raceCommitteeChanged = pyqtSignal()
 
     # The modes static list
 
@@ -123,7 +138,7 @@ class QRegatta(QObject):
 
     # The organizer property
 
-    @pyqtProperty(QPerson, notify=organizerChanged)
+    @pyqtProperty(QSailingClub, notify=organizerChanged)
     def organizer(self):
         return self._organizer
         #return self._regatta.organizer

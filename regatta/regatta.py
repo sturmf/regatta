@@ -38,9 +38,13 @@ class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
             regatta.name = os.path.splitext(filename)[0]
             Regatta.session.add(regatta)
 
-            organizer = Person(first_name='Peter', last_name='Parker')
+            organizer = SailingClub(name='Segel Club Würmsee')
             regatta.organizer = organizer
             Regatta.session.add(organizer)
+
+            race_committee = Person(first_name='Peter', last_name='Parker')
+            regatta.race_committee = race_committee
+            Regatta.session.add(race_committee)
 
             Regatta.session.commit()
         return regatta
@@ -54,8 +58,10 @@ class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
     start_date = Column(Date, default=datetime.datetime.utcnow)
     end_date = Column(Date, default=datetime.datetime.utcnow)
     race_count = Column(Integer, default=1)
-    organizer_id = Column(Integer, ForeignKey('person.id'))
-    organizer = relationship("Person")
+    organizer_id = Column(Integer, ForeignKey('sailing_club.id'))
+    organizer = relationship("SailingClub")
+    race_committee_id = Column(Integer, ForeignKey('person.id'))
+    race_committee = relationship("Person")
 
     def __init__(self):
         pass
@@ -63,6 +69,15 @@ class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
     @classmethod
     def save(cls):
         Regatta.session.commit()
+
+
+class SailingClub(Base):
+    __tablename__ = 'sailing_club'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False, default='')
+    abbreviation = Column(String, nullable=False, default='')
+    registration = Column(String, nullable=False, default='')
 
 
 class Person(Base):

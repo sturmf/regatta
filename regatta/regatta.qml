@@ -23,7 +23,7 @@ TabView {
 
             Label { text: "Title" }
             TextField {
-                text: regatta.name + regatta.organizer.first_name
+                text: regatta.name
                 onTextChanged: regatta.name = text
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
