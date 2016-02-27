@@ -16,19 +16,17 @@ setup(
     name='regatta',
     #version=regatta.__version__,
     version='0.0.1',
-    url='http://github.com/sturmf/regatta/',
     license='General Public License',
     author='Fabian Sturm',
-    tests_require=['pytest'],
-    #install_requires=[],
-    cmdclass={'test': PyTest},
     author_email='f@rtfs.org',
+    url='http://github.com/sturmf/regatta/',
     description='A simple sailing race scoring program.',
     #long_description=long_description,
+    #install_requires=[],
+    tests_require=['pytest'],
+    cmdclass={'test': PyTest},
     packages=['regatta'],
-    #include_package_data=True,
     platforms='any',
-    #test_suite='sandman.test.test_sandman',
     #classifiers = [
     #    'Programming Language :: Python',
     #    'Development Status :: 4 - Beta',
@@ -41,7 +39,4 @@ setup(
     #    'Topic :: Software Development :: Libraries :: Application Frameworks',
     #    'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     #    ],
-    extras_require={
-        'testing': ['pytest'],
-    }
 )
