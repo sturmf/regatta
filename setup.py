@@ -2,6 +2,7 @@ import sys
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
+
 class PyTest(TestCommand):
     def finalize_options(self):
         TestCommand.finalize_options(self)
@@ -12,31 +13,35 @@ class PyTest(TestCommand):
         errno = pytest.main(self.pytest_args)
         sys.exit(errno)
 
+
+version = '0.0.1'
+# version=regatta.__version__,
+long_description = open('README.md', 'r').read()
+
 setup(
     name='regatta',
-    #version=regatta.__version__,
-    version='0.0.1',
+    version=version,
     license='General Public License',
     author='Fabian Sturm',
     author_email='f@rtfs.org',
     url='http://github.com/sturmf/regatta/',
     description='A simple sailing race scoring program.',
-    #long_description=long_description,
-    #install_requires=[],
+    long_description=long_description,
+    setup_requires=['flake8'],
+    # install_requires=[],
     tests_require=['pytest'],
     cmdclass={'test': PyTest},
     packages=['regatta'],
     platforms='any',
-    #classifiers = [
-    #    'Programming Language :: Python',
-    #    'Development Status :: 4 - Beta',
-    #    'Natural Language :: English',
-    #    'Environment :: Web Environment',
-    #    'Intended Audience :: Developers',
-    #    'License :: OSI Approved :: Apache Software License',
-    #    'Operating System :: OS Independent',
-    #    'Topic :: Software Development :: Libraries :: Python Modules',
-    #    'Topic :: Software Development :: Libraries :: Application Frameworks',
-    #    'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
-    #    ],
+    classifiers=[
+        'Development Status :: 1 - Planning',
+        'Environment :: X11 Applications :: Qt',
+        'Environment :: MacOS X',
+        'Environment :: Win32 (MS Windows)',
+        'Intended Audience :: End Users/Desktop',
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+        'Natural Language :: English',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3',
+        ],
 )

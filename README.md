@@ -36,11 +36,15 @@ To run the style guide checks run
 
 To run the tests execute
 
+    python3 setup.py test
+or
     PYTHONPATH=. py.test-3
 
 To create the documentation run
 
-    cd docs && PYTHONPATH=.. make html
+    python3 setup.py build_sphinx
+or
+    cd docs && make html
 
 
 # Contributions from non team members
