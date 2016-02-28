@@ -15,7 +15,7 @@ The main goal of this project is to learn about the state of the art development
 This means especially using the following:
 
 * Distributed version control ([GitHub.com](https://github.com)) [https://github.com/sturmf/regatta](https://github.com/sturmf/regatta)
-* Continues integration ([Travis-CI](https://travis-ci.org)) [https://travis-ci.org/sturmf/regatta](https://travis-ci.org/sturmf/regatta)
+* Continous integration ([Travis-CI](https://travis-ci.org)) [https://travis-ci.org/sturmf/regatta](https://travis-ci.org/sturmf/regatta)
 * Test coverage ([Coveralls.io](https://coveralls.io)) [https://coveralls.io/github/sturmf/regatta](https://coveralls.io/github/sturmf/regatta)
 * Code review ([ReviewBoard](https://www.reviewboard.org)) [http://reviewboard.rtfs.org](http://reviewboard.rtfs.org)
 * Code smells ([Landscape.io](https://landscape.io)) [https://landscape.io/github/sturmf/regatta/](https://landscape.io/github/sturmf/regatta/)
