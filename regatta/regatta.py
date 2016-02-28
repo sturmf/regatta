@@ -50,14 +50,14 @@ class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
             Regatta.session.commit()
         return regatta
 
-    class Modus(enum.Enum):
+    class Mode(enum.Enum):
         Yardstick, Class = range(2)
 
     id = Column(Integer, primary_key=True)
     """name of the event"""
     name = Column(String, nullable=False, default='')
     """kind of the event either Class or Yardstick"""
-    modus = Column(Enum(*[x.name for x in Modus], name='modus_types'), default=Modus.Class.name)
+    mode = Column(Enum(*[x.name for x in Mode], name='mode_types'), default=Mode.Class.name)
     """first day of the event"""
     start_date = Column(Date, default=datetime.datetime.utcnow)
     """last day of the event"""

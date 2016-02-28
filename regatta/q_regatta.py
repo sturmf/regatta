@@ -42,7 +42,7 @@ class QRegatta(QObject):
     # All signals
     filenameChanged = pyqtSignal()
     nameChanged = pyqtSignal()
-    modusChanged = pyqtSignal()
+    modeChanged = pyqtSignal()
     startDateChanged = pyqtSignal()
     endDateChanged = pyqtSignal()
     raceCountChanged = pyqtSignal()
@@ -53,7 +53,7 @@ class QRegatta(QObject):
 
     @pyqtProperty('QStringList', constant=True)
     def modes(self):
-        return [modus.name for modus in Regatta.Modus]
+        return [mode.name for mode in Regatta.Mode]
 
     # The file_name property
 
@@ -83,18 +83,18 @@ class QRegatta(QObject):
             self._regatta.name = name
             self.nameChanged.emit()
 
-    # The modus property
+    # The mode property
 
-    @pyqtProperty('QString', notify=modusChanged)
-    def modus(self):
-        return str(Regatta.Modus[self._regatta.modus].value)
+    @pyqtProperty('QString', notify=modeChanged)
+    def mode(self):
+        return str(Regatta.Mode[self._regatta.mode].value)
 
-    @modus.setter
-    def modus(self, modus):
-        if self._regatta.modus != Regatta.Modus(int(modus)).name:
-            print('modus changed to %s' % modus)
-            self._regatta.modus = Regatta.Modus(int(modus)).name
-            self.modusChanged.emit()
+    @mode.setter
+    def mode(self, mode):
+        if self._regatta.mode != Regatta.Mode(int(mode)).name:
+            print('mode changed to %s' % mode)
+            self._regatta.mode = Regatta.Mode(int(mode)).name
+            self.modeChanged.emit()
 
     # The start_date property
 

@@ -30,11 +30,11 @@ TabView {
             }
 
 
-            Label { text: "Modus" }
+            Label { text: "Mode" }
             ComboBox {
                 model: regatta.modes
-                currentIndex: regatta.modus
-                onCurrentIndexChanged: regatta.modus = currentIndex
+                currentIndex: regatta.mode
+                onCurrentIndexChanged: regatta.mode = currentIndex
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
             }
