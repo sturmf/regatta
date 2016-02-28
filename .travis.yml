@@ -13,7 +13,7 @@ install:
 
 before_script:
   - flake8 --max-line-length=120 regatta
-  - cd docs && make html
+  - (cd docs; make html)
 
 script:
   - PYTHONPATH=`pwd` coverage run --source=regatta -m py.test
