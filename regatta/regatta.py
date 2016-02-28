@@ -58,11 +58,16 @@ class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
     name = Column(String, nullable=False, default='')
     """kind of the event either Class or Yardstick"""
     modus = Column(Enum(*[x.name for x in Modus], name='modus_types'), default=Modus.Class.name)
+    """first day of the event"""
     start_date = Column(Date, default=datetime.datetime.utcnow)
+    """last day of the event"""
     end_date = Column(Date, default=datetime.datetime.utcnow)
+    """amount of races scheduled during the event"""
     race_count = Column(Integer, default=1)
+    """the sailing club that organizes the event"""
     organizer_id = Column(Integer, ForeignKey('sailing_club.id'))
     organizer = relationship("SailingClub")
+    """the person responsible for the execution of the event"""
     race_committee_id = Column(Integer, ForeignKey('person.id'))
     race_committee = relationship("Person")
 
