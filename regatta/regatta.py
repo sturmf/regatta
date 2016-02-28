@@ -12,6 +12,7 @@ Base = declarative_base()
 
 
 class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
+    """This is the data model of the application, it implements persistence through the SQLAlchemy database."""
     __tablename__ = 'regatta'
 
     @classmethod
@@ -53,7 +54,9 @@ class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
         Yardstick, Class = range(2)
 
     id = Column(Integer, primary_key=True)
+    """name of the event"""
     name = Column(String, nullable=False, default='')
+    """kind of the event either Class or Yardstick"""
     modus = Column(Enum(*[x.name for x in Modus], name='modus_types'), default=Modus.Class.name)
     start_date = Column(Date, default=datetime.datetime.utcnow)
     end_date = Column(Date, default=datetime.datetime.utcnow)
