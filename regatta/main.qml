@@ -36,11 +36,11 @@ ApplicationWindow {
 
     Item {
         id: item
-        // This is a hack to capture the Regatta event parameter
+        // FIXME: This is a hack to capture the Regatta event parameter
         signal eventCreated(QEvent event)
         onEventCreated: {
             console.log(event.name)
-            pageLoader.setSource("components/Event.qml", {regatta: event})
+            eventDialog.regatta = event
         }
 
         QRegatta {
@@ -49,18 +49,17 @@ ApplicationWindow {
         }
     }
 
-    Loader {
+    Components.Event {
+        id: eventDialog
         anchors.fill: parent
-        id: pageLoader
     }
 
     Components.OpenDialog {
         id: openDialog
         anchors.fill: parent
+        //regattaModel.eventCreated.connect: console.log('i got it too')
         onNewEvent: regattaModel.new_event(name)
-        onOpenEvent: {
-            pageLoader.setSource("components/Event.qml", {regatta: regattaModel.events[index]})
-        }
+        onOpenEvent: eventDialog.regatta = regattaModel.events[index]
         listView.model: regattaModel.events
     }
 }
