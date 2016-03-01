@@ -34,32 +34,25 @@ ApplicationWindow {
         }
     }
 
-    Item {
-        id: item
-        // FIXME: This is a hack to capture the Regatta event parameter
-        signal eventCreated(QEvent event)
-        onEventCreated: {
-            console.log(event.name)
-            eventDialog.regatta = event
-        }
-
-        QRegatta {
-            id: regattaModel
-            Component.onCompleted: { regattaModel.eventCreated.connect(item.eventCreated) }
-        }
+    QRegatta {
+        id: regattaModel
     }
 
     Components.Event {
-        id: eventDialog
+        id: eventView
         anchors.fill: parent
     }
 
     Components.OpenDialog {
         id: openDialog
         anchors.fill: parent
-        //regattaModel.eventCreated.connect: console.log('i got it too')
-        onNewEvent: regattaModel.new_event(name)
-        onOpenEvent: eventDialog.regatta = regattaModel.events[index]
+        signal eventCreated(QEvent event)
         listView.model: regattaModel.events
+
+        onNewEvent: regattaModel.new_event(name) // This delegated the creation to the regatta model
+        onEventCreated: eventView.regatta = event // An event was created, so set it as active data model
+        onOpenEvent: eventView.regatta = regattaModel.events[index] // An event was selected, so set it as active data model
+
+        Component.onCompleted: { regattaModel.eventCreated.connect(openDialog.eventCreated) }
     }
 }
