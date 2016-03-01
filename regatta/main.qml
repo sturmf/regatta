@@ -34,12 +34,25 @@ ApplicationWindow {
         }
     }
 
+    // This is the base model instance
     QRegatta {
         id: regattaModel
     }
 
-    Components.Event {
-        id: eventView
+    // This is a factory that allows to create the eventView on demand
+    // We can only create it after we have the proper event model
+    Component {
+        id: eventFactory
+
+        Components.Event {
+            id: eventView
+            anchors.fill: parent
+        }
+     }
+
+    // This is a placeholder which will be the parent of the eventView
+    Item {
+        id: eventViewItem
         anchors.fill: parent
     }
 
@@ -50,9 +63,8 @@ ApplicationWindow {
         listView.model: regattaModel.events
 
         onNewEvent: regattaModel.new_event(name) // This delegated the creation to the regatta model
-        onEventCreated: eventView.regatta = event // An event was created, so set it as active data model
-        onOpenEvent: eventView.regatta = regattaModel.events[index] // An event was selected, so set it as active data model
-
+        onEventCreated: eventFactory.createObject(eventViewItem, {event: event}) // An event was created, so set it as active data model
+        onOpenEvent: eventFactory.createObject(eventViewItem, {event: regattaModel.events[index]}) // An event was selected, so set it as active data model
         Component.onCompleted: { regattaModel.eventCreated.connect(openDialog.eventCreated) }
     }
 }

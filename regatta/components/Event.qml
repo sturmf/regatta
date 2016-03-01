@@ -6,7 +6,7 @@ import QtQuick.Controls 1.2
 TabView {
     id: tabView
 
-    property var regatta
+    property var event
 
     Tab {
         anchors.margins: 10
@@ -22,8 +22,8 @@ TabView {
 
             Label { text: "Title" }
             TextField {
-                text: regatta.name
-                onTextChanged: regatta.name = text
+                text: event.name
+                onTextChanged: event.name = text
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
             }
@@ -31,9 +31,13 @@ TabView {
 
             Label { text: "Mode" }
             ComboBox {
-                model: regatta.modes
-                currentIndex: regatta.mode
-                onCurrentIndexChanged: regatta.mode = currentIndex
+                model: event.modes
+                currentIndex: {
+                    console.log('event.mode')
+                    console.log(event.mode)
+                    event.mode
+                }
+                onCurrentIndexChanged: event.mode = currentIndex
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
             }
@@ -42,8 +46,8 @@ TabView {
             Label { text: "Date" }
             DatePicker {
                 Layout.fillWidth: true
-                selectedDate: regatta.start_date
-                onDateChanged: regatta.start_date = date
+                selectedDate: event.start_date
+                onDateChanged: event.start_date = date
             }
             Label {
                 text: "until"
@@ -51,8 +55,8 @@ TabView {
             }
             DatePicker {
                 Layout.fillWidth: true
-                selectedDate: regatta.end_date
-                onDateChanged: regatta.end_date = date
+                selectedDate: event.end_date
+                onDateChanged: event.end_date = date
             }
 
 
@@ -60,8 +64,8 @@ TabView {
             SpinBox {
                 Layout.minimumWidth: 100
                 Layout.fillWidth: true
-                value: regatta.race_count
-                onValueChanged: regatta.race_count = value
+                value: event.race_count
+                onValueChanged: event.race_count = value
             }
             Label {
                 text: "unrated on"

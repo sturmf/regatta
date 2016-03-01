@@ -33,6 +33,7 @@ class Regatta():  # FIXME rename to RegattaModel and file to regatta_model
         return event
 
     def save(self):
+        print('saving changed to database')
         self.session.commit()
 
 
