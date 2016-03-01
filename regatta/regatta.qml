@@ -11,7 +11,7 @@ TabView {
 
     Tab {
         anchors.margins: 10
-        title: "Regatta"
+        title: "Event"
 
         GridLayout {
             id: gridLayout

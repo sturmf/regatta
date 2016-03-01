@@ -1,5 +1,6 @@
 from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
-from regatta import Regatta
+from PyQt5.QtQml import QQmlListProperty
+from regatta import Regatta, Event
 
 
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
@@ -29,18 +30,16 @@ class QPerson(QObject):
 
 
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
-class QRegatta(QObject):
+class QEvent(QObject):
 
-    def __init__(self, parent=None):
+    def __init__(self, event, parent=None):
         QObject.__init__(self, parent)
-        self._filename = None
-        self._regatta = None
+        self._event = event
         self._organizer = QSailingClub()
         self._race_committee = QPerson()
         print("constructed")
 
     # All signals
-    filenameChanged = pyqtSignal()
     nameChanged = pyqtSignal()
     modeChanged = pyqtSignal()
     startDateChanged = pyqtSignal()
@@ -55,84 +54,69 @@ class QRegatta(QObject):
     def modes(self):
         return [mode.name for mode in Regatta.Mode]
 
-    # The file_name property
-
-    @pyqtProperty('QString', notify=filenameChanged)
-    def filename(self):
-        return self._filename
-
-    @filename.setter
-    def filename(self, filename):
-        if filename and self._filename != filename:
-            print('filename changed to %s' % filename)
-            self._filename = filename
-            # create a new Regatta instance with the filename
-            self._regatta = Regatta.load_or_create_regatta(self._filename)
-            # We just created a new Regatta instance, invalidate all properties
-
     # The name property
 
     @pyqtProperty('QString', notify=nameChanged)
     def name(self):
-        return self._regatta.name
+        return self._event.name
 
     @name.setter
     def name(self, name):
-        if self._regatta.name != name:
+        if self._event.name != name:
             print('name changed to %s' % name)
-            self._regatta.name = name
+            self._event.name = name
             self.nameChanged.emit()
 
     # The mode property
 
     @pyqtProperty('QString', notify=modeChanged)
     def mode(self):
-        return str(Regatta.Mode[self._regatta.mode].value)
+        return str(Regatta.Mode[self._event.mode].value)
 
     @mode.setter
     def mode(self, mode):
-        if self._regatta.mode != Regatta.Mode(int(mode)).name:
+        if self._event.mode != Regatta.Mode(int(mode)).name:
             print('mode changed to %s' % mode)
-            self._regatta.mode = Regatta.Mode(int(mode)).name
+            self._event.mode = Regatta.Mode(int(mode)).name
             self.modeChanged.emit()
 
     # The start_date property
 
     @pyqtProperty('QDate', notify=startDateChanged)
     def start_date(self):
-        return self._regatta.start_date
+        return self._event.start_date
 
     @start_date.setter
     def start_date(self, start_date):
-        if self._regatta.start_date != start_date.toPyDate():
+        if self._event.start_date != start_date.toPyDate():
             print('start_date changed to %s' % start_date)
-            self._regatta.start_date = start_date.toPyDate()
+            self._event.start_date = start_date.toPyDate()
             self.startDateChanged.emit()
 
     # The end_date property
 
     @pyqtProperty('QDate', notify=endDateChanged)
     def end_date(self):
-        return self._regatta.end_date
+        return self._event.end_date
 
     @end_date.setter
     def end_date(self, end_date):
-        if self._regatta.end_date != end_date.toPyDate():
+        if self._event.end_date != end_date.toPyDate():
             print('end_date changed to %s' % end_date)
-            self._regatta.end_date = end_date.toPyDate()
+            self._event.end_date = end_date.toPyDate()
             self.endDateChanged.emit()
 
     # The race_count property
 
     @pyqtProperty('int', notify=raceCountChanged)
     def race_count(self):
-        return self._regatta.race_count
+        return self._event.race_count
 
     @race_count.setter
     def race_count(self, race_count):
-        if self._regatta.race_count != race_count:
+        if self._event.race_count != race_count:
             print('race_count changed to %s' % race_count)
-            self._regatta.race_count = race_count
+            self._event.race_count = race_count
             self.raceCountChanged.emit()
 
     # The organizer property
@@ -141,6 +125,29 @@ class QRegatta(QObject):
     def organizer(self):
         return self._organizer
         # return self._regatta.organizer
+
+
+class QRegatta(QObject):
+
+    # All signals
+    eventCreated = pyqtSignal(QEvent)
+
+    def __init__(self, parent=None):
+        QObject.__init__(self, parent)
+        # Load the model that we adapt
+        self._regatta = Regatta()
+        self._events = [QEvent(event) for event in self._regatta.session.query(Event).all()]
+
+    @pyqtProperty(QQmlListProperty)
+    def events(self):
+        return QQmlListProperty(QEvent, self, self._events)
+
+    @pyqtSlot(str)
+    def new_event(self, name):
+        event = self._regatta.new_event(name)
+        qevent = QEvent(event)
+        self._events.append(qevent)
+        self.eventCreated.emit(qevent)
 
     @pyqtSlot()
     def save(self):

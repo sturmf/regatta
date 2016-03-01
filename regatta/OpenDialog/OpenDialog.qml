@@ -5,8 +5,8 @@ import QtQuick.Layouts 1.0
 Rectangle {
     id: root
 
-    signal newRegatta(string name)
-    signal openRegatta(string url)
+    signal newEvent(string name)
+    signal openEvent(int index)
 
     property alias listView: listView
 
@@ -19,7 +19,7 @@ Rectangle {
         anchors.rightMargin: 20
         onClicked: {
             root.visible = false
-            newRegatta(name.text)
+            newEvent(name.text)
         }
     }
 
@@ -31,7 +31,7 @@ Rectangle {
         anchors.leftMargin: 20
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
-        placeholderText: qsTr("Regatta Name")
+        placeholderText: qsTr("Event Name")
     }
 
     ListView {
@@ -88,15 +88,15 @@ Rectangle {
                 id: openArea
                 anchors.fill: parent
                 onClicked: {
-                    console.log("model clicked: " + url)
+                    console.log("model clicked: " + listView.model[index].name)
                     root.visible = false
-                    openRegatta(url)
+                    openEvent(index)
                 }
             }
         }
 
         // This is necessary for dummyData to work
-        model: regattas
+        model: events
     }
 }
 

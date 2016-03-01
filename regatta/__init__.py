@@ -1,3 +1,3 @@
-from .regatta import Regatta
+from .regatta import Regatta, Event
 
-__all__ = ['Regatta']
+__all__ = ['Regatta', 'Event']

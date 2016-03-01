@@ -2,17 +2,17 @@ import QtQuick 2.4
 
 ListModel {
     ListElement {
+        dbid: 1
         name: "Bayerische Jugendwoche"
-        url: "Bayerische Jugendwoche.rgs"
     }
 
     ListElement {
+        dbid: 2
         name: "Rambeckpreis"
-        url: "Rambeckpreis.rgs"
     }
 
     ListElement {
+        dbid: 3
         name: "Rüssel Cup"
-        url: "Rüssel Cup.rgs"
     }
 }

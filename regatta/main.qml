@@ -2,10 +2,9 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.2
-import "main.js" as Main
 import "OpenDialog"
-import RegattaItemModel 1.0
 import QRegatta 1.0
+import QEvent 1.0
 
 
 ApplicationWindow {
@@ -16,24 +15,6 @@ ApplicationWindow {
     color: "gray"
     Accessible.name: "Regatta"
 
-/*
-    // IconName does not work
-    toolBar: ToolBar {
-        RowLayout {
-            ToolButton {
-                text: "Open"
-                iconName: "open"
-                onClicked: openDialog.visible = true
-            }
-            ToolButton {
-                text: "Save"
-                iconName: "document-save"
-                onClicked: pageLoader.item.regatta.save()
-            }
-        }
-    }
-*/
-
     menuBar: MenuBar {
         Menu {
             title: "&Regatta"
@@ -43,13 +24,28 @@ ApplicationWindow {
             }
             MenuItem {
                 text: "&Save"
-                onTriggered: pageLoader.item.regatta.save()
+                onTriggered: regattaModel.save()
             }
             MenuItem {
                 text: "E&xit"
                 shortcut: StandardKey.Quit
                 onTriggered: Qt.quit()
             }
+        }
+    }
+
+    Item {
+        id: item
+        // This is a hack to capture the Regatta event parameter
+        signal eventCreated(QEvent event)
+        onEventCreated: {
+            console.log(event.name)
+            pageLoader.setSource("regatta.qml", {regatta: event})
+        }
+
+        QRegatta {
+            id: regattaModel
+            Component.onCompleted: { regattaModel.eventCreated.connect(item.eventCreated) }
         }
     }
 
@@ -61,13 +57,10 @@ ApplicationWindow {
     OpenDialog {
         id: openDialog
         anchors.fill: parent
-        onNewRegatta: Main.newRegatta(name)
-        onOpenRegatta: Main.openRegatta(url)
-        listView.model: RegattaItemModel {}
-    }
-
-    Component {
-        id: qRegattaFactory
-        QRegatta {}
+        onNewEvent: regattaModel.new_event(name)
+        onOpenEvent: {
+            pageLoader.setSource("regatta.qml", {regatta: regattaModel.events[index]})
+        }
+        listView.model: regattaModel.events
     }
 }

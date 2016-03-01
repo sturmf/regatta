@@ -5,59 +5,45 @@ from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, Enum, Date, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
-from urllib.parse import urlparse
 
 # Here we create the database base type.
 Base = declarative_base()
 
 
-class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
+class Regatta():  # FIXME rename to RegattaModel and file to regatta_model
     """This is the data model of the application, it implements persistence through the SQLAlchemy database."""
-    __tablename__ = 'regatta'
-
-    @classmethod
-    def load_or_create_regatta(cls, filename, overwrite=False):
-        # Sanity check
-        url = urlparse(filename)
-        if len(url.path) < 4:  # FIXME: rest after / must be longer
-            raise ValueError('Too short database name')
-
-        # Delete already existing database file in overwrite mode
-        if overwrite and os.path.exists(url.path):
-            os.remove(url.path)
-
-        # Create a connection to a new or existing database
-        engine = create_engine('sqlite:///' + url.path, echo=True)
-        db_session = sessionmaker(bind=engine)
-        cls.session = db_session()
-        Base.metadata.create_all(engine)
-
-        # Load or create the regatta instance
-        regatta = Regatta.session.query(Regatta).first()
-        if not regatta:
-            regatta = Regatta()
-            regatta.name = os.path.splitext(filename)[0]
-            Regatta.session.add(regatta)
-
-            organizer = SailingClub(name='Segel Club Würmsee')
-            regatta.organizer = organizer
-            Regatta.session.add(organizer)
-
-            race_committee = Person(first_name='Peter', last_name='Parker')
-            regatta.race_committee = race_committee
-            Regatta.session.add(race_committee)
-
-            Regatta.session.commit()
-        return regatta
 
     class Mode(enum.Enum):
         Yardstick, Class = range(2)
+
+    def __init__(self, filename='regatta.rgs', overwrite=False):
+        if overwrite and os.path.exists(filename):
+            os.remove(filename)
+        # Create a connection to a new or existing database
+        engine = create_engine('sqlite:///' + filename, echo=False)
+        db_session = sessionmaker(bind=engine)
+        self.session = db_session()
+        Base.metadata.create_all(engine)
+
+    """Create the event instance"""
+    def new_event(self, name=''):
+        event = Event()
+        event.name = name
+        self.session.add(event)
+        return event
+
+    def save(self):
+        self.session.commit()
+
+
+class Event(Base):
+    __tablename__ = 'event'
 
     id = Column(Integer, primary_key=True)
     """name of the event"""
     name = Column(String, nullable=False, default='')
     """kind of the event either Class or Yardstick"""
-    mode = Column(Enum(*[x.name for x in Mode], name='mode_types'), default=Mode.Class.name)
+    mode = Column(Enum(*[x.name for x in Regatta.Mode], name='mode_types'), default=Regatta.Mode.Class.name)
     """first day of the event"""
     start_date = Column(Date, default=datetime.datetime.utcnow)
     """last day of the event"""
@@ -71,20 +57,16 @@ class Regatta(Base):  # FIXME rename to RegattaModel and file to regatta_model
     race_committee_id = Column(Integer, ForeignKey('person.id'))
     race_committee = relationship("Person")
 
-    def __init__(self):
-        pass
-
-    @classmethod
-    def save(cls):
-        Regatta.session.commit()
-
 
 class SailingClub(Base):
     __tablename__ = 'sailing_club'
 
     id = Column(Integer, primary_key=True)
+    """full name of the sailing club"""
     name = Column(String, nullable=False, default='')
+    """official abbreviation of the sailing club"""
     abbreviation = Column(String, nullable=False, default='')
+    """the registration number of the sailing club, if applicable"""
     registration = Column(String, nullable=False, default='')
 
 
