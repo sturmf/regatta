@@ -2,7 +2,7 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.2
-import "OpenDialog"
+import "components" as Components
 import QRegatta 1.0
 import QEvent 1.0
 
@@ -40,7 +40,7 @@ ApplicationWindow {
         signal eventCreated(QEvent event)
         onEventCreated: {
             console.log(event.name)
-            pageLoader.setSource("regatta.qml", {regatta: event})
+            pageLoader.setSource("components/Event.qml", {regatta: event})
         }
 
         QRegatta {
@@ -54,12 +54,12 @@ ApplicationWindow {
         id: pageLoader
     }
 
-    OpenDialog {
+    Components.OpenDialog {
         id: openDialog
         anchors.fill: parent
         onNewEvent: regattaModel.new_event(name)
         onOpenEvent: {
-            pageLoader.setSource("regatta.qml", {regatta: regattaModel.events[index]})
+            pageLoader.setSource("components/Event.qml", {regatta: regattaModel.events[index]})
         }
         listView.model: regattaModel.events
     }
