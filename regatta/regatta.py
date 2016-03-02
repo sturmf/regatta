@@ -71,16 +71,25 @@ class SailingClub(Base):
 
     id = Column(Integer, primary_key=True)
     """full name of the sailing club"""
-    name = Column(String, nullable=False, default='')
+    name = Column(String, nullable=False)
     """official abbreviation of the sailing club"""
-    abbreviation = Column(String, nullable=False, default='')
+    abbreviation = Column(String, nullable=False)
     """the registration number of the sailing club, if applicable"""
-    registration = Column(String, nullable=False, default='')
+    registration = Column(String, nullable=False)
+
+    def __init__(self):
+        self.name = ''
+        self.abbreviation = ''
+        self.registration = ''
 
 
 class Person(Base):
     __tablename__ = 'person'
 
     id = Column(Integer, primary_key=True)
-    first_name = Column(String, nullable=False, default='')
-    last_name = Column(String, nullable=False, default='')
+    first_name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
+
+    def __init__(self):
+        self.first_name = ''
+        self.last_name = ''
