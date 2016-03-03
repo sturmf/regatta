@@ -61,8 +61,8 @@ class Event(Base):
     def __init__(self):
         self.name = ''
         self.mode = Regatta.Mode.Yardstick.name
-        self.start_date = datetime.datetime.utcnow()
-        self.end_date = datetime.datetime.utcnow()
+        self.start_date = datetime.date.today()
+        self.end_date = datetime.date.today()
         self.race_count = 1
 
 
