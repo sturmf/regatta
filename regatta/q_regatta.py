@@ -16,7 +16,7 @@ class QSailingClub(QObject):
 
     @pyqtProperty('QString', notify=nameChanged)
     def name(self):
-        return self._sailing_club.name
+        return self._sailing_club.name if self._sailing_club else 'Not selected'
 
 
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
@@ -142,7 +142,7 @@ class QRegatta(QObject):
         # Load the model that we adapt
         self._regatta = Regatta()
         self._events = [QEvent(event) for event in self._regatta.session.query(Event).all()]
-        self._sailing_clubs = [QSailingClub(sailing_club) for sailing_club in self._regatta.session.query(SailingClub).all()]
+        self._sailing_clubs = [QSailingClub(None)] + [QSailingClub(sailing_club) for sailing_club in self._regatta.session.query(SailingClub).all()]
 
     @pyqtProperty(QQmlListProperty, notify=eventsChanged)
     def events(self):
