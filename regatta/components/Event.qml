@@ -33,8 +33,6 @@ TabView {
             ComboBox {
                 model: event.modes
                 currentIndex: {
-                    console.log('event.mode')
-                    console.log(event.mode)
                     event.mode
                 }
                 onCurrentIndexChanged: event.mode = currentIndex

@@ -34,7 +34,7 @@ Item {
             offset.x += item.x;
             offset.y += item.y;
         }
-        console.debug("total", "x", offset.x, "y", offset.y)
+        //console.debug("total", "x", offset.x, "y", offset.y)
 
         return offset;
     }
