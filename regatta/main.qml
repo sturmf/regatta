@@ -63,8 +63,8 @@ ApplicationWindow {
         listView.model: regattaModel.events
 
         onNewEvent: regattaModel.new_event(name) // This delegated the creation to the regatta model
-        onEventCreated: eventFactory.createObject(eventViewItem, {event: event}) // An event was created, so set it as active data model
-        onOpenEvent: eventFactory.createObject(eventViewItem, {event: regattaModel.events[index]}) // An event was selected, so set it as active data model
+        onEventCreated: eventFactory.createObject(eventViewItem, {regatta: regattaModel, event: event}) // An event was created, so set it as active data model
+        onOpenEvent: eventFactory.createObject(eventViewItem, {regatta: regattaModel, event: regattaModel.events[index]}) // An event was selected, so set it as active data model
         Component.onCompleted: { regattaModel.eventCreated.connect(openDialog.eventCreated) }
     }
 }

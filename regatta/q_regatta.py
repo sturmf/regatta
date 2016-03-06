@@ -1,25 +1,28 @@
 from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
 from PyQt5.QtQml import QQmlListProperty
-from regatta import Regatta, Event
+from regatta import Regatta, Event, SailingClub
 
 
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
 class QSailingClub(QObject):
 
-    def __init__(self, parent=None):
+    def __init__(self, sailing_club, parent=None):
         QObject.__init__(self, parent)
-        self._id = None
+        self._sailing_club = sailing_club
         print("sailing_club constructed")
 
-    @pyqtProperty('QString')
+    # All signals
+    nameChanged = pyqtSignal()
+
+    @pyqtProperty('QString', notify=nameChanged)
     def name(self):
-        return "sailing_club works"
+        return self._sailing_club.name
 
 
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
 class QPerson(QObject):
 
-    def __init__(self, parent=None):
+    def __init__(self, person, parent=None):
         QObject.__init__(self, parent)
         self._id = None
         print("person constructed")
@@ -35,8 +38,8 @@ class QEvent(QObject):
     def __init__(self, event, parent=None):
         QObject.__init__(self, parent)
         self._event = event
-        self._organizer = QSailingClub()
-        self._race_committee = QPerson()
+        self._organizer = None
+        self._race_committee = None
         print("constructed")
 
     # All signals
@@ -131,14 +134,17 @@ class QRegatta(QObject):
 
     # All signals
     eventCreated = pyqtSignal(QEvent)
+    eventsChanged = pyqtSignal()
+    sailingClubsChanged = pyqtSignal()
 
     def __init__(self, parent=None):
         QObject.__init__(self, parent)
         # Load the model that we adapt
         self._regatta = Regatta()
         self._events = [QEvent(event) for event in self._regatta.session.query(Event).all()]
+        self._sailing_clubs = [QSailingClub(sailing_club) for sailing_club in self._regatta.session.query(SailingClub).all()]
 
-    @pyqtProperty(QQmlListProperty)
+    @pyqtProperty(QQmlListProperty, notify=eventsChanged)
     def events(self):
         return QQmlListProperty(QEvent, self, self._events)
 
@@ -148,6 +154,10 @@ class QRegatta(QObject):
         qevent = QEvent(event)
         self._events.append(qevent)
         self.eventCreated.emit(qevent)
+
+    @pyqtProperty(QQmlListProperty, notify=sailingClubsChanged)
+    def sailing_clubs(self):
+        return QQmlListProperty(QSailingClub, self, self._sailing_clubs)
 
     @pyqtSlot()
     def save(self):

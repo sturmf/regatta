@@ -6,6 +6,7 @@ import QtQuick.Controls 1.2
 TabView {
     id: tabView
 
+    property var regatta
     property var event
 
     Tab {
@@ -84,6 +85,8 @@ TabView {
                 ComboBox {
                     Layout.columnSpan: 2
                     Layout.fillWidth: true
+                    model: regatta.sailing_clubs
+                    textRole: 'name'
                 }
                 Button {
                     iconSource: "icons/ic_create_black_18px.svg"

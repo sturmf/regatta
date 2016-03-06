@@ -25,6 +25,12 @@ class Regatta():  # FIXME rename to RegattaModel and file to regatta_model
         self.session = db_session()
         Base.metadata.create_all(engine)
 
+        # Fake a sailing club for now
+        sc = SailingClub()
+        sc.name = 'Segel CLub Würmsee'
+        sc.abbreviation = 'SCW'
+        self.session.add(sc)
+
     """Create the event instance"""
     def new_event(self, name=''):
         event = Event()
