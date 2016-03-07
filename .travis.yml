@@ -12,7 +12,7 @@ install:
   - travis_retry pip install sphinx
 
 before_script:
-  - flake8 --max-line-length=120 regatta
+  - flake8 --max-line-length=160 regatta
   - (cd docs; make html)
 
 script:

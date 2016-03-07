@@ -142,7 +142,8 @@ class QRegatta(QObject):
         # Load the model that we adapt
         self._regatta = Regatta()
         self._events = [QEvent(event) for event in self._regatta.session.query(Event).all()]
-        self._organizers = [QSailingClub(None)] + [QSailingClub(sailing_club) for sailing_club in self._regatta.session.query(SailingClub).all()] # FIXME: list only previous
+        # FIXME: list only previous organizers
+        self._organizers = [QSailingClub(None)] + [QSailingClub(sailing_club) for sailing_club in self._regatta.session.query(SailingClub).all()]
 
     @pyqtProperty(QQmlListProperty, notify=eventsChanged)
     def events(self):
