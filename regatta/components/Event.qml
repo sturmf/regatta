@@ -85,7 +85,8 @@ TabView {
                 ComboBox {
                     Layout.columnSpan: 2
                     Layout.fillWidth: true
-                    model: regatta.sailing_clubs
+                    model: regatta.organizers
+                    //currentIndex: event.organizer
                     textRole: 'name'
                 }
                 Button {
