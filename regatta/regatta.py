@@ -7,7 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
 # Here we create the database base type.
-Base = declarative_base()
+BASE = declarative_base()
 
 
 class Regatta():  # FIXME rename to RegattaModel and file to regatta_model
@@ -23,16 +23,16 @@ class Regatta():  # FIXME rename to RegattaModel and file to regatta_model
         engine = create_engine('sqlite:///' + filename, echo=False)
         db_session = sessionmaker(bind=engine)
         self.session = db_session()
-        Base.metadata.create_all(engine)
+        BASE.metadata.create_all(engine)
 
         # Fake a sailing club for now
-        sc = SailingClub()
-        sc.name = 'Segel CLub Würmsee'
-        sc.abbreviation = 'SCW'
-        self.session.add(sc)
+        sailing_club = SailingClub()
+        sailing_club.name = 'Segel CLub Würmsee'
+        sailing_club.abbreviation = 'SCW'
+        self.session.add(sailing_club)
 
-    """Create the event instance"""
     def new_event(self, name=''):
+        """Create the event instance"""
         event = Event()
         event.name = name
         self.session.add(event)
@@ -43,7 +43,7 @@ class Regatta():  # FIXME rename to RegattaModel and file to regatta_model
         self.session.commit()
 
 
-class Event(Base):
+class Event(BASE):
     __tablename__ = 'event'
 
     id = Column(Integer, primary_key=True)
@@ -72,7 +72,7 @@ class Event(Base):
         self.race_count = 1
 
 
-class SailingClub(Base):
+class SailingClub(BASE):
     __tablename__ = 'sailing_club'
 
     id = Column(Integer, primary_key=True)
@@ -89,7 +89,7 @@ class SailingClub(Base):
         self.registration = ''
 
 
-class Person(Base):
+class Person(BASE):
     __tablename__ = 'person'
 
     id = Column(Integer, primary_key=True)
