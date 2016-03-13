@@ -13,10 +13,21 @@ class QSailingClub(QObject):
 
     # All signals
     nameChanged = pyqtSignal()
+    abbreviationChanged = pyqtSignal()
+    registrationChanged = pyqtSignal()
 
     @pyqtProperty('QString', notify=nameChanged)
     def name(self):
         return self._sailing_club.name if self._sailing_club else 'Not selected'
+
+    @pyqtProperty('QString', notify=abbreviationChanged)
+    def abbreviation(self):
+        return self._sailing_club.abbreviation if self._sailing_club else ''
+
+    @pyqtProperty('QString', notify=registrationChanged)
+    def registration(self):
+        return self._sailing_club.registration if self._sailing_club else ''
+
 
 
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
@@ -135,6 +146,7 @@ class QRegatta(QObject):
     # All signals
     eventCreated = pyqtSignal(QEvent)
     eventsChanged = pyqtSignal()
+    sailingClubsChanged = pyqtSignal()
     organizersChanged = pyqtSignal()
 
     def __init__(self, parent=None):
@@ -142,6 +154,7 @@ class QRegatta(QObject):
         # Load the model that we adapt
         self._regatta = Regatta()
         self._events = [QEvent(event) for event in self._regatta.session.query(Event).all()]
+        self._sailing_clubs = [QSailingClub(sailing_club) for sailing_club in self._regatta.session.query(SailingClub).all()]
         # FIXME: list only previous organizers
         self._organizers = [QSailingClub(None)] + [QSailingClub(sailing_club) for sailing_club in self._regatta.session.query(SailingClub).all()]
 
@@ -155,6 +168,10 @@ class QRegatta(QObject):
         qevent = QEvent(event)
         self._events.append(qevent)
         self.eventCreated.emit(qevent)
+
+    @pyqtProperty(QQmlListProperty, notify=sailingClubsChanged)
+    def sailing_clubs(self):
+        return QQmlListProperty(QSailingClub, self, self._sailing_clubs)
 
     @pyqtProperty(QQmlListProperty, notify=organizersChanged)
     def organizers(self):

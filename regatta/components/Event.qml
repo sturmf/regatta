@@ -1,6 +1,7 @@
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
+import "event.js" as EventController
 
 
 TabView {
@@ -91,6 +92,7 @@ TabView {
                 }
                 Button {
                     iconSource: "icons/ic_create_black_18px.svg"
+                    onClicked: EventController.editSailingClubs(parent, regatta, event)
                 }
             }
 

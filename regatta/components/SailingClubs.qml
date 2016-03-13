@@ -6,8 +6,14 @@ import QtQuick.Controls 1.3
 Window {
     id: root
 
+    property var regatta
+    property var event
+    property var selectedSailingClub
+
     width: 800
     height: 400
+
+    modality: Qt.WindowModal
 
     ColumnLayout {
         anchors.fill: parent
@@ -63,7 +69,8 @@ Window {
                             role: "name"
                             title: "Name"
                         }
-                        model: sailingclubs
+                        model: regatta.sailing_clubs
+                        onClicked: selectedSailingClub = model[row]
                     }
                 }
             }
@@ -98,6 +105,7 @@ Window {
                         }
                         TextField {
                             Layout.fillWidth: true
+                            text: selectedSailingClub.name
                         }
 
                         Label {
@@ -105,6 +113,7 @@ Window {
                         }
                         TextField {
                             Layout.fillWidth: true
+                            text: selectedSailingClub.abbreviation
                         }
 
                         Label {
@@ -112,6 +121,7 @@ Window {
                         }
                         TextField {
                             Layout.fillWidth: true
+                            text: selectedSailingClub.registration
                         }
 
                     }
@@ -129,6 +139,7 @@ Window {
             }
             Button {
                 text: "Cancel"
+                onClicked: root.close()
             }
         }
 
