@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.3
+import QSailingClub 1.0
+
 
 Window {
     id: root
@@ -10,10 +12,15 @@ Window {
     property var event
     property var selectedSailingClub
 
+    signal sailingClubCreated(QSailingClub sailing_club)
+
     width: 800
     height: 400
 
     modality: Qt.WindowModal
+
+    onSailingClubCreated: selectedSailingClub = sailing_club
+    Component.onCompleted: { regatta.sailingClubCreated.connect(root.sailingClubCreated) }
 
     ColumnLayout {
         anchors.fill: parent
@@ -51,6 +58,7 @@ Window {
                             anchors.right: removeButton.left
                             anchors.rightMargin: 10
                             iconSource: "icons/ic_note_add_black_18px.svg"
+                            onClicked: regatta.new_sailing_club()
                         }
                         Button {
                             id: removeButton
@@ -106,6 +114,7 @@ Window {
                         TextField {
                             Layout.fillWidth: true
                             text: selectedSailingClub.name
+                            onTextChanged: selectedSailingClub.name = text
                         }
 
                         Label {
@@ -114,6 +123,7 @@ Window {
                         TextField {
                             Layout.fillWidth: true
                             text: selectedSailingClub.abbreviation
+                            onTextChanged: selectedSailingClub.abbreviation = text
                         }
 
                         Label {
@@ -122,6 +132,7 @@ Window {
                         TextField {
                             Layout.fillWidth: true
                             text: selectedSailingClub.registration
+                            onTextChanged: selectedSailingClub.registration = text
                         }
 
                     }

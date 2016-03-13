@@ -20,14 +20,31 @@ class QSailingClub(QObject):
     def name(self):
         return self._sailing_club.name if self._sailing_club else 'Not selected'
 
+    @name.setter
+    def name(self, name):
+        if self._sailing_club.name != name:
+            self._sailing_club.name = name
+            self.nameChanged.emit()
+
     @pyqtProperty('QString', notify=abbreviationChanged)
     def abbreviation(self):
         return self._sailing_club.abbreviation if self._sailing_club else ''
+
+    @abbreviation.setter
+    def abbreviation(self, abbreviation):
+        if self._sailing_club.abbreviation != abbreviation:
+            self._sailing_club.abbreviation = abbreviation
+            self.abbreviationChanged.emit()
 
     @pyqtProperty('QString', notify=registrationChanged)
     def registration(self):
         return self._sailing_club.registration if self._sailing_club else ''
 
+    @registration.setter
+    def registration(self, registration):
+        if self._sailing_club.registration != registration:
+            self._sailing_club.registration = registration
+            self.registrationChanged.emit()
 
 
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
@@ -145,6 +162,7 @@ class QRegatta(QObject):
 
     # All signals
     eventCreated = pyqtSignal(QEvent)
+    sailingClubCreated = pyqtSignal(QSailingClub)
     eventsChanged = pyqtSignal()
     sailingClubsChanged = pyqtSignal()
     organizersChanged = pyqtSignal()
@@ -168,6 +186,15 @@ class QRegatta(QObject):
         qevent = QEvent(event)
         self._events.append(qevent)
         self.eventCreated.emit(qevent)
+
+    @pyqtSlot()
+    def new_sailing_club(self):
+        sailing_club = self._regatta.new_sailing_club()
+        qsailing_club = QSailingClub(sailing_club)
+        self._sailing_clubs.append(qsailing_club)
+        self.sailingClubsChanged.emit()
+        self.sailingClubCreated.emit(qsailing_club)
+
 
     @pyqtProperty(QQmlListProperty, notify=sailingClubsChanged)
     def sailing_clubs(self):
