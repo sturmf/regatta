@@ -64,6 +64,9 @@ Window {
                             id: removeButton
                             anchors.right: parent.right
                             iconSource: "icons/ic_delete_black_18px.svg"
+                            onClicked: {
+                                regatta.delete_sailing_club(selectedSailingClub)
+                            }
                         }
                     }
                     TableView {
@@ -113,8 +116,9 @@ Window {
                         }
                         TextField {
                             Layout.fillWidth: true
-                            text: selectedSailingClub.name
-                            onTextChanged: selectedSailingClub.name = text
+                            text: selectedSailingClub ? selectedSailingClub.name : ''
+                            readOnly: selectedSailingClub ? false : true
+                            onTextChanged: if (selectedSailingClub) selectedSailingClub.name = text
                         }
 
                         Label {
@@ -122,8 +126,9 @@ Window {
                         }
                         TextField {
                             Layout.fillWidth: true
-                            text: selectedSailingClub.abbreviation
-                            onTextChanged: selectedSailingClub.abbreviation = text
+                            text: selectedSailingClub ? selectedSailingClub.abbreviation : ''
+                            readOnly: selectedSailingClub ? false : true
+                            onTextChanged: if (selectedSailingClub) selectedSailingClub.abbreviation = text
                         }
 
                         Label {
@@ -131,8 +136,9 @@ Window {
                         }
                         TextField {
                             Layout.fillWidth: true
-                            text: selectedSailingClub.registration
-                            onTextChanged: selectedSailingClub.registration = text
+                            text: selectedSailingClub ? selectedSailingClub.registration : ''
+                            readOnly: selectedSailingClub ? false : true
+                            onTextChanged: if (selectedSailingClub) selectedSailingClub.registration = text
                         }
 
                     }

@@ -16,6 +16,9 @@ class QSailingClub(QObject):
     abbreviationChanged = pyqtSignal()
     registrationChanged = pyqtSignal()
 
+    def sailing_club(self):
+        return self._sailing_club
+
     @pyqtProperty('QString', notify=nameChanged)
     def name(self):
         return self._sailing_club.name if self._sailing_club else 'Not selected'
@@ -195,6 +198,12 @@ class QRegatta(QObject):
         self.sailingClubsChanged.emit()
         self.sailingClubCreated.emit(qsailing_club)
 
+    @pyqtSlot(QSailingClub)
+    def delete_sailing_club(self, sailing_club):
+        if sailing_club:
+            self._sailing_clubs.remove(sailing_club)
+            self._regatta.delete_sailing_club(sailing_club.sailing_club())
+            self.sailingClubsChanged.emit()
 
     @pyqtProperty(QQmlListProperty, notify=sailingClubsChanged)
     def sailing_clubs(self):

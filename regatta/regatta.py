@@ -39,6 +39,12 @@ class Regatta():  # FIXME rename to RegattaModel and file to regatta_model
         self.session.add(sailing_club)
         return sailing_club
 
+    def delete_sailing_club(self, sailing_club):
+        if sailing_club in self.session.new:
+            self.session.expunge(sailing_club)
+        else:
+            self.session.delete(sailing_club)
+
     def save(self):
         print('saving changed to database')
         self.session.commit()
