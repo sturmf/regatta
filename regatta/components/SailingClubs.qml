@@ -12,7 +12,8 @@ Window {
     property var event
     property var selectedSailingClub
 
-    signal sailingClubCreated(QSailingClub sailing_club)
+    signal sailingClubCreated(QSailingClub sailing_club) // fixme should be a function
+    signal sailingClubSelected(QSailingClub sailing_club)
 
     width: 800
     height: 400
@@ -153,6 +154,10 @@ Window {
             anchors.bottom: parent.bottom
             Button {
                 text: "Select"
+                onClicked : {
+                    sailingClubSelected(selectedSailingClub)
+                    root.close()
+                }
             }
             Button {
                 text: "Cancel"

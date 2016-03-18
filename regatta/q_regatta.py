@@ -160,6 +160,12 @@ class QEvent(QObject):
         return self._organizer
         # return self._regatta.organizer
 
+    @organizer.setter
+    def organizer(self, organizer):
+        if self._organizer != organizer:
+            print('organizer changed to %s' % organizer)
+            self._organizer = organizer
+            self.organizerChanged.emit()
 
 class QRegatta(QObject):
 
