@@ -117,7 +117,7 @@ Window {
                         TextField {
                             Layout.fillWidth: true
                             text: selectedSailingClub ? selectedSailingClub.name : ''
-                            readOnly: selectedSailingClub ? false : true
+                            enabled: selectedSailingClub ? true : false
                             onTextChanged: if (selectedSailingClub) selectedSailingClub.name = text
                         }
 
@@ -127,7 +127,7 @@ Window {
                         TextField {
                             Layout.fillWidth: true
                             text: selectedSailingClub ? selectedSailingClub.abbreviation : ''
-                            readOnly: selectedSailingClub ? false : true
+                            enabled: selectedSailingClub ? true : false
                             onTextChanged: if (selectedSailingClub) selectedSailingClub.abbreviation = text
                         }
 
@@ -137,7 +137,7 @@ Window {
                         TextField {
                             Layout.fillWidth: true
                             text: selectedSailingClub ? selectedSailingClub.registration : ''
-                            readOnly: selectedSailingClub ? false : true
+                            enabled: selectedSailingClub ? true : false
                             onTextChanged: if (selectedSailingClub) selectedSailingClub.registration = text
                         }
 
