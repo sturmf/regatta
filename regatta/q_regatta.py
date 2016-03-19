@@ -19,6 +19,10 @@ class QSailingClub(QObject):
     def sailing_club(self):
         return self._sailing_club
 
+    @pyqtProperty('int')
+    def id(self):
+        return self._sailing_club.id if self._sailing_club else -1
+
     @pyqtProperty('QString', notify=nameChanged)
     def name(self):
         return self._sailing_club.name if self._sailing_club else 'Not selected'
@@ -166,6 +170,7 @@ class QEvent(QObject):
             print('organizer changed to %s' % organizer)
             self._organizer = organizer
             self.organizerChanged.emit()
+
 
 class QRegatta(QObject):
 

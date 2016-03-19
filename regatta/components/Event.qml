@@ -84,15 +84,16 @@ TabView {
                 Layout.fillWidth: true
                 spacing: 10
                 ComboBox {
+                    id: organizerComboBox
                     Layout.columnSpan: 2
                     Layout.fillWidth: true
                     model: regatta.organizers
-                    //currentIndex: event.organizer
+                    currentIndex: EventController.getIndex(regatta.organizers, event.organizer)
                     textRole: 'name'
                 }
                 Button {
                     iconSource: "icons/ic_create_black_18px.svg"
-                    onClicked: EventController.editSailingClubs(parent, regatta, event)
+                    onClicked: EventController.editSailingClubs(organizerComboBox, regatta, event)
                 }
             }
 
