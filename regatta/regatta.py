@@ -1,8 +1,10 @@
 import datetime
 import enum
 import os
+import uuid
+from guid import GUID
 from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String, Enum, Date, ForeignKey
+from sqlalchemy import Column, Integer, String, Enum, Date, ForeignKey, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
@@ -83,17 +85,23 @@ class SailingClub(BASE):
     __tablename__ = 'sailing_club'
 
     id = Column(Integer, primary_key=True)
+    """a unique id independent of database save"""
+    uuid = Column(GUID, nullable=False)
     """full name of the sailing club"""
     name = Column(String, nullable=False)
     """official abbreviation of the sailing club"""
     abbreviation = Column(String, nullable=False)
     """the registration number of the sailing club, if applicable"""
     registration = Column(String, nullable=False)
+    """if this sailing club has ever been an organizer"""
+    was_organizer = Column(Boolean, nullable=False)
 
     def __init__(self):
+        self.uuid = uuid.uuid4()
         self.name = ''
         self.abbreviation = ''
         self.registration = ''
+        self.was_organizer = False
 
 
 class Person(BASE):

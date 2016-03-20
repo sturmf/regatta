@@ -15,13 +15,14 @@ class QSailingClub(QObject):
     nameChanged = pyqtSignal()
     abbreviationChanged = pyqtSignal()
     registrationChanged = pyqtSignal()
+    was_organizerChanged = pyqtSignal()
 
-    def sailing_club(self):
+    def sailing_club(self): # FIXME: maybe rename to inner_model
         return self._sailing_club
 
-    @pyqtProperty('int')
-    def id(self):
-        return self._sailing_club.id if self._sailing_club else -1
+    @pyqtProperty('QString')
+    def uuid(self):
+        return str(self._sailing_club.uuid) if self._sailing_club else ''
 
     @pyqtProperty('QString', notify=nameChanged)
     def name(self):
@@ -52,6 +53,16 @@ class QSailingClub(QObject):
         if self._sailing_club.registration != registration:
             self._sailing_club.registration = registration
             self.registrationChanged.emit()
+
+    @pyqtProperty('bool')
+    def was_organizer(self):
+        return self._sailing_club.was_organizer
+
+    @was_organizer.setter
+    def was_organizer(self, was_organizer):
+        if self._sailing_club.was_organizer != was_organizer:
+            self._sailing_club.was_organizer = was_organizer
+            self.was_organizerChanged.emit()
 
 
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
@@ -169,6 +180,7 @@ class QEvent(QObject):
         if self._organizer != organizer:
             print('organizer changed to %s' % organizer)
             self._organizer = organizer
+            self._organizer.was_organizer = True
             self.organizerChanged.emit()
 
 
@@ -187,8 +199,9 @@ class QRegatta(QObject):
         self._regatta = Regatta()
         self._events = [QEvent(event) for event in self._regatta.session.query(Event).all()]
         self._sailing_clubs = [QSailingClub(sailing_club) for sailing_club in self._regatta.session.query(SailingClub).all()]
-        # FIXME: list only previous organizers
-        self._organizers = [QSailingClub(None)] + [QSailingClub(sailing_club) for sailing_club in self._regatta.session.query(SailingClub).all()]
+        # Register for was_organizer changes
+        for q_sailing_club in self._sailing_clubs:
+            q_sailing_club.was_organizerChanged.connect(self.refresh_organizers)
 
     @pyqtProperty(QQmlListProperty, notify=eventsChanged)
     def events(self):
@@ -204,10 +217,11 @@ class QRegatta(QObject):
     @pyqtSlot()
     def new_sailing_club(self):
         sailing_club = self._regatta.new_sailing_club()
-        qsailing_club = QSailingClub(sailing_club)
-        self._sailing_clubs.append(qsailing_club)
+        q_sailing_club = QSailingClub(sailing_club)
+        q_sailing_club.was_organizerChanged.connect(self.refresh_organizers)
+        self._sailing_clubs.append(q_sailing_club)
         self.sailingClubsChanged.emit()
-        self.sailingClubCreated.emit(qsailing_club)
+        self.sailingClubCreated.emit(q_sailing_club)
 
     @pyqtSlot(QSailingClub)
     def delete_sailing_club(self, sailing_club):
@@ -220,9 +234,20 @@ class QRegatta(QObject):
     def sailing_clubs(self):
         return QQmlListProperty(QSailingClub, self, self._sailing_clubs)
 
+    def refresh_organizers(self):
+        print('organizers refresh')
+        self.organizersChanged.emit()
+
+    @pyqtSlot()
+    def refresh(self):
+        print('refreshing')
+        self.organizersChanged.emit()
+
     @pyqtProperty(QQmlListProperty, notify=organizersChanged)
     def organizers(self):
-        return QQmlListProperty(QSailingClub, self, self._organizers)
+        print('organizers loaded')
+        organizers = [q_sailing_club for q_sailing_club in self._sailing_clubs if q_sailing_club.was_organizer]
+        return QQmlListProperty(QSailingClub, self, organizers)
 
     @pyqtSlot()
     def save(self):
