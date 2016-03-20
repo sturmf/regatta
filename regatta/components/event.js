@@ -14,9 +14,10 @@ function editSailingClubs(parent, regatta, event) {
 
 
 function getIndex(list, element) {
-    console.log('getIndex: ' + list + ', ' + element + ', ' + element.uuid)
-    console.log('length: ' + list.length)
     if (list && element) {
+        console.log('getIndex: ' + list + ', ' + element + ', ' + element.uuid)
+        console.log('length: ' + list.length)
+
         for (var i = 0; i < list.length; i++) {
             if (list[i].uuid === element.uuid) {
                 console.log('return:' + i + ', ' + list[i].uuid)

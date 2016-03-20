@@ -32,6 +32,7 @@ class Regatta():  # FIXME rename to RegattaModel and file to regatta_model
         event = Event()
         event.name = name
         self.session.add(event)
+        self.session.flush()
         return event
 
     def new_sailing_club(self, name='Not Set'):
@@ -39,6 +40,7 @@ class Regatta():  # FIXME rename to RegattaModel and file to regatta_model
         sailing_club = SailingClub()
         sailing_club.name = name
         self.session.add(sailing_club)
+        self.session.flush()
         return sailing_club
 
     def delete_sailing_club(self, sailing_club):

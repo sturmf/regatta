@@ -81,10 +81,10 @@ class QPerson(QObject):
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
 class QEvent(QObject):
 
-    def __init__(self, event, parent=None):
+    def __init__(self, q_regatta, event, parent=None):
         QObject.__init__(self, parent)
+        self._q_regatta = q_regatta
         self._event = event
-        self._organizer = None
         self._race_committee = None
         print("constructed")
 
@@ -172,15 +172,16 @@ class QEvent(QObject):
 
     @pyqtProperty(QSailingClub, notify=organizerChanged)
     def organizer(self):
-        return self._organizer
-        # return self._regatta.organizer
+        organizer = self._q_regatta.find_q_sailing_club(self._event.organizer)
+        print('Found sailing club %s' % organizer)
+        return organizer
 
     @organizer.setter
-    def organizer(self, organizer):
-        if self._organizer != organizer:
-            print('organizer changed to %s' % organizer)
-            self._organizer = organizer
-            self._organizer.was_organizer = True
+    def organizer(self, q_organizer):
+        if self._event.organizer != q_organizer.sailing_club():
+            print('organizer changed to %s' % q_organizer)
+            self._event.organizer = q_organizer.sailing_club()
+            q_organizer.was_organizer = True
             self.organizerChanged.emit()
 
 
@@ -197,7 +198,7 @@ class QRegatta(QObject):
         QObject.__init__(self, parent)
         # Load the model that we adapt
         self._regatta = Regatta()
-        self._events = [QEvent(event) for event in self._regatta.session.query(Event).all()]
+        self._events = [QEvent(self, event) for event in self._regatta.session.query(Event).all()]
         self._sailing_clubs = [QSailingClub(sailing_club) for sailing_club in self._regatta.session.query(SailingClub).all()]
         # Register for was_organizer changes
         for q_sailing_club in self._sailing_clubs:
@@ -233,6 +234,12 @@ class QRegatta(QObject):
     @pyqtProperty(QQmlListProperty, notify=sailingClubsChanged)
     def sailing_clubs(self):
         return QQmlListProperty(QSailingClub, self, self._sailing_clubs)
+
+    def find_q_sailing_club(self, sailing_club):
+        for q_sailing_club in self._sailing_clubs:
+            if q_sailing_club.sailing_club() == sailing_club:
+                return q_sailing_club
+        return None
 
     def refresh_organizers(self):
         print('organizers refresh')
