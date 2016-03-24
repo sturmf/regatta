@@ -2,7 +2,7 @@ import datetime
 import enum
 import os
 import uuid
-from guid import GUID
+from .guid import GUID
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, Enum, Date, ForeignKey, Boolean
 from sqlalchemy.ext.declarative import declarative_base

@@ -3,7 +3,7 @@ import sys
 
 from PyQt5 import QtCore, QtQml, QtWidgets
 
-from q_regatta import QRegatta, QEvent, QSailingClub, QPerson
+from regatta.q_regatta import QRegatta, QEvent, QSailingClub, QPerson
 
 # Fixme: I have no idea why I can't put it in a method
 # def main():
@@ -27,7 +27,7 @@ engine.quit.connect(app.quit)
 # Load the main.qml file and create the toplevel component
 component = QtQml.QQmlComponent(engine)
 currentFilePath = os.path.dirname(os.path.abspath(__file__))
-mainFilepath = os.path.join(currentFilePath, "main.qml")
+mainFilepath = os.path.join(currentFilePath, "regatta/main.qml")
 if windows:
     mainFilepath = mainFilepath.replace('\\', '/')
 qmlFile = QtCore.QUrl("file:///" + mainFilepath)

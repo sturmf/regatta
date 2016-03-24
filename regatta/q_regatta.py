@@ -18,7 +18,7 @@ class QSailingClub(QObject):
     registrationChanged = pyqtSignal()
     was_organizerChanged = pyqtSignal()
 
-    def sailing_club(self): # FIXME: maybe rename to inner_model
+    def sailing_club(self):  # FIXME: maybe rename to inner_model
         return self._sailing_club
 
     @pyqtProperty('QString', notify=uuidChanged)
@@ -212,7 +212,7 @@ class QRegatta(QObject):
     @pyqtSlot(str)
     def new_event(self, name):
         event = self._regatta.new_event(name)
-        qevent = QEvent(event)
+        qevent = QEvent(self, event)
         self._events.append(qevent)
         self.eventCreated.emit(qevent)
 
