@@ -34,9 +34,7 @@ TabView {
             Label { text: "Mode" }
             ComboBox {
                 model: event.modes
-                currentIndex: {
-                    event.mode
-                }
+                currentIndex: event.mode
                 onCurrentIndexChanged: event.mode = currentIndex
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
@@ -88,9 +86,9 @@ TabView {
                     Layout.columnSpan: 2
                     Layout.fillWidth: true
                     model: regatta.organizers
-                    currentIndex: EventController.getIndex(regatta.organizers, event.organizer)
                     textRole: 'name'
-                    onCurrentIndexChanged: event.organizer = model[currentIndex]
+                    onModelChanged: currentIndex = EventController.getIndex(regatta.organizers, event.organizer)
+                    onActivated: event.organizer = model[index]
                 }
                 Button {
                     iconSource: "icons/ic_create_black_18px.svg"

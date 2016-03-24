@@ -12,6 +12,7 @@ class QSailingClub(QObject):
         print("sailing_club constructed")
 
     # All signals
+    uuidChanged = pyqtSignal()
     nameChanged = pyqtSignal()
     abbreviationChanged = pyqtSignal()
     registrationChanged = pyqtSignal()
@@ -20,7 +21,7 @@ class QSailingClub(QObject):
     def sailing_club(self): # FIXME: maybe rename to inner_model
         return self._sailing_club
 
-    @pyqtProperty('QString')
+    @pyqtProperty('QString', notify=uuidChanged)
     def uuid(self):
         return str(self._sailing_club.uuid) if self._sailing_club else ''
 
@@ -179,7 +180,7 @@ class QEvent(QObject):
     @organizer.setter
     def organizer(self, q_organizer):
         if self._event.organizer != q_organizer.sailing_club():
-            print('organizer changed to %s' % q_organizer)
+            print('organizer changed to %s' % q_organizer.name)
             self._event.organizer = q_organizer.sailing_club()
             q_organizer.was_organizer = True
             self.organizerChanged.emit()
