@@ -5,6 +5,7 @@ import QtQuick.Controls 1.3
 import QSailingClub 1.0
 import "helper.js" as Helper
 
+// FIXME: move KeyPress handlers out into actions / functions
 
 Window {
     id: root
@@ -97,6 +98,7 @@ Window {
                             Component.onCompleted: {
                                 var index = Helper.getIndex(model, selectedSailingClub)
                                 sailing_club_table.selection.select(index, index)
+                                sailing_club_table.positionViewAtRow(index, ListView.Contain)
                             }
                         }
                     }
@@ -173,10 +175,15 @@ Window {
                         sailingClubSelected(selectedSailingClub)
                         root.close()
                     }
+                    Keys.onPressed: if (event.key === Qt.Key_Return) {
+                        sailingClubSelected(selectedSailingClub)
+                        root.close()
+                    }
                 }
                 Button {
                     text: "Cancel"
                     onClicked: root.close()
+                    Keys.onPressed: if (event.key === Qt.Key_Return) { root.close() }
                 }
             }
 
