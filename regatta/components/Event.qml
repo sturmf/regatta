@@ -1,6 +1,7 @@
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
+import "helper.js" as Helper
 import "event.js" as EventController
 
 
@@ -87,7 +88,7 @@ TabView {
                     Layout.fillWidth: true
                     model: regatta.organizers
                     textRole: 'name'
-                    onModelChanged: currentIndex = EventController.getIndex(regatta.organizers, event.organizer)
+                    onModelChanged: currentIndex = Helper.getIndex(regatta.organizers, event.organizer)
                     onActivated: event.organizer = model[index]
                 }
                 Button {
