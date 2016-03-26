@@ -10,11 +10,12 @@ def test_event_defaults():
     event = regatta.new_event()
 
     assert(event.name == '')
-    assert(event.mode == Regatta.Mode.Yardstick.name)
+    assert(event.mode == Event.Mode.Yardstick.name)
     assert(event.start_date == datetime.date.today())
     assert(event.end_date == datetime.date.today())
     assert(event.race_count == 1)
     # FIXME: what should the organizer and race_committee be?
+
 
 # FIXME: this is open for discussion, I put more tests in a single unit test, since they all need the same setup
 def test_regatta_name():
@@ -30,7 +31,7 @@ def test_regatta_name():
     event.name = name
     assert(event.name == name)
 
-    # Test persistency
+    # Test persistence
     regatta.save()
 
     # reload regatta

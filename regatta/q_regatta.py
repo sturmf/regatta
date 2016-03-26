@@ -102,7 +102,7 @@ class QEvent(QObject):
 
     @pyqtProperty('QStringList', constant=True)
     def modes(self):
-        return [mode.name for mode in Regatta.Mode]
+        return [mode.name for mode in Event.Mode]
 
     # The name property
 
@@ -121,13 +121,13 @@ class QEvent(QObject):
 
     @pyqtProperty('QString', notify=modeChanged)
     def mode(self):
-        return str(Regatta.Mode[self._event.mode].value)
+        return str(Event.Mode[self._event.mode].value)
 
     @mode.setter
     def mode(self, mode):
-        if self._event.mode != Regatta.Mode(int(mode)).name:
+        if self._event.mode != Event.Mode(int(mode)).name:
             print('mode changed to %s' % mode)
-            self._event.mode = Regatta.Mode(int(mode)).name
+            self._event.mode = Event.Mode(int(mode)).name
             self.modeChanged.emit()
 
     # The start_date property
