@@ -4,7 +4,6 @@ from sqlalchemy.orm import sessionmaker
 from .base import BASE
 from .event import Event
 from .sailing_club import SailingClub
-from .person import Person
 
 
 class Regatta():  # FIXME rename to RegattaModel and file to regatta_model

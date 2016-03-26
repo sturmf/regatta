@@ -3,6 +3,7 @@ import enum
 from sqlalchemy import Column, Integer, String, Enum, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from .base import BASE
+from .person import Person
 
 
 class Event(BASE):
@@ -27,7 +28,7 @@ class Event(BASE):
     organizer = relationship("SailingClub")
     """the person responsible for the execution of the event"""
     race_committee_id = Column(Integer, ForeignKey('person.id'))
-    race_committee = relationship("Person")
+    race_committee = relationship(Person)
 
     def __init__(self):
         self.name = ''
