@@ -18,7 +18,6 @@ Rectangle {
         anchors.right: parent.right
         anchors.rightMargin: 20
         onClicked: {
-            root.visible = false
             newEvent(name.text)
         }
     }
