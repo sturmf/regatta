@@ -215,6 +215,7 @@ class QRegatta(QObject):
         qevent = QEvent(self, event)
         self._events.append(qevent)
         self.eventCreated.emit(qevent)
+        self.eventsChanged.emit()
 
     @pyqtSlot()
     def new_sailing_club(self):
