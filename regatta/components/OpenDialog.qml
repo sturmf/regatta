@@ -31,6 +31,9 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
         placeholderText: qsTr("Event Name")
+        onAccepted: {
+            newEvent(name.text)
+        }
     }
 
     ListView {
