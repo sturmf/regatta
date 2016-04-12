@@ -19,6 +19,7 @@ Rectangle {
         anchors.rightMargin: 20
         onClicked: {
             newEvent(name.text)
+            name.text = ""
         }
     }
 
@@ -33,6 +34,7 @@ Rectangle {
         placeholderText: qsTr("Event Name")
         onAccepted: {
             newEvent(name.text)
+            text = ""
         }
     }
 
