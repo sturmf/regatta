@@ -83,5 +83,5 @@ target/
 # JIRA plugin
 atlassian-ide-plugin.xml
 
-
-
+# vim
+*.swp
