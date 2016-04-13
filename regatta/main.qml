@@ -12,6 +12,7 @@ ApplicationWindow {
     id: mainWindow
     title: "Regatta program"
     width: 800; height: 600
+    minimumWidth: 600
     color: "gray"
     Accessible.name: "Regatta"
 

@@ -52,7 +52,9 @@ Rectangle {
         delegate: Rectangle {
             id: item1
             x: 0
-            width: 760
+//          width: 760
+            anchors.right: parent.right
+            anchors.left: parent.left
             height: 40
             radius: 4
             gradient: Gradient {
