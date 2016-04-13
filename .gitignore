@@ -85,3 +85,4 @@ atlassian-ide-plugin.xml
 
 # vim
 *.swp
+*.swo
