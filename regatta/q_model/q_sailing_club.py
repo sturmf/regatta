@@ -1,5 +1,4 @@
-from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
-from regatta import SailingClub
+from PyQt5.QtCore import pyqtProperty, pyqtSignal, QObject
 
 
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
@@ -63,4 +62,3 @@ class QSailingClub(QObject):
         if self._sailing_club.was_organizer != was_organizer:
             self._sailing_club.was_organizer = was_organizer
             self.was_organizerChanged.emit()
-

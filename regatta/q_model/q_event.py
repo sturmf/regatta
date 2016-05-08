@@ -1,6 +1,7 @@
-from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
+from PyQt5.QtCore import pyqtProperty, pyqtSignal, QObject
 from regatta import Event
 from .q_sailing_club import QSailingClub
+
 
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
 class QEvent(QObject):
@@ -107,4 +108,3 @@ class QEvent(QObject):
             self._event.organizer = q_organizer.sailing_club()
             q_organizer.was_organizer = True
             self.organizerChanged.emit()
-
