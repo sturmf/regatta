@@ -3,7 +3,7 @@ import sys
 
 from PyQt5 import QtCore, QtQml, QtWidgets
 
-from regatta.q_regatta import QRegatta, QEvent, QSailingClub, QPerson
+from regatta import QRegatta, QEvent, QSailingClub, QPerson
 
 # Fixme: I have no idea why I can't put it in a method
 # def main():
