@@ -2,6 +2,9 @@ language: python
 dist: trusty
 sudo: required
 
+virtualenv:
+  system_site_packages: true
+
 python:
   - "3.3"
   - "3.4"
@@ -13,7 +16,6 @@ before_install:
 
 install:
   - if [[ $TRAVIS_PYTHON_VERSION == 3.3 ]]; then travis_retry pip install enum34; fi
-  - travis_retry pip install vext.pyqt5
   - travis_retry pip install -r requirements.txt
   - travis_retry pip install coveralls
   - travis_retry pip install flake8
