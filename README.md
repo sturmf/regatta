@@ -32,6 +32,10 @@ To run the program execute
 
 To run the style guide checks run
 
+    python3 setup.py flake8
+
+or
+
     flake8 regatta
 
 To run the tests execute
