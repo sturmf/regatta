@@ -261,3 +261,4 @@ class QRegatta(QObject):
     @pyqtSlot()
     def save(self):
         self._regatta.save()
+
