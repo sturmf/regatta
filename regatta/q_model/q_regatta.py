@@ -1,8 +1,9 @@
-from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
+from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject, QAbstractListModel
 from PyQt5.QtQml import QQmlListProperty
 from regatta import Regatta, Event, SailingClub
 from .q_event import QEvent
 from .q_sailing_club import QSailingClub
+from .q_sailing_clubs import QSailingClubs
 
 
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
@@ -20,10 +21,10 @@ class QRegatta(QObject):
         # Load the model that we adapt
         self._regatta = Regatta()
         self._events = [QEvent(self, event) for event in self._regatta.session.query(Event).all()]
-        self._sailing_clubs = [QSailingClub(sailing_club) for sailing_club in self._regatta.session.query(SailingClub).all()]
+        self._q_sailing_clubs = QSailingClubs(self, parent)
         # Register for was_organizer changes
-        for q_sailing_club in self._sailing_clubs:
-            q_sailing_club.was_organizerChanged.connect(self.refresh_organizers)
+        #for q_sailing_club in self._sailing_clubs:
+        #    q_sailing_club.was_organizerChanged.connect(self.refresh_organizers)
 
     @pyqtProperty(QQmlListProperty, notify=eventsChanged)
     def events(self):
@@ -53,15 +54,9 @@ class QRegatta(QObject):
             self._regatta.delete_sailing_club(sailing_club.sailing_club())
             self.sailingClubsChanged.emit()
 
-    @pyqtProperty(QQmlListProperty, notify=sailingClubsChanged)
+    @pyqtProperty(QSailingClubs, notify=sailingClubsChanged)
     def sailing_clubs(self):
-        return QQmlListProperty(QSailingClub, self, self._sailing_clubs)
-
-    def find_q_sailing_club(self, sailing_club):
-        for q_sailing_club in self._sailing_clubs:
-            if q_sailing_club.sailing_club() == sailing_club:
-                return q_sailing_club
-        return None
+        return self._q_sailing_clubs
 
     def refresh_organizers(self):
         print('organizers refresh')
@@ -72,11 +67,10 @@ class QRegatta(QObject):
         print('refreshing')
         self.organizersChanged.emit()
 
-    @pyqtProperty(QQmlListProperty, notify=organizersChanged)
+    @pyqtProperty(QSailingClubs, notify=sailingClubsChanged)
     def organizers(self):
-        print('organizers loaded')
-        organizers = [q_sailing_club for q_sailing_club in self._sailing_clubs if q_sailing_club.was_organizer]
-        return QQmlListProperty(QSailingClub, self, organizers)
+        # FIXME: return a QSortFilterProxyModel
+        return self._q_sailing_clubs
 
     @pyqtSlot()
     def save(self):

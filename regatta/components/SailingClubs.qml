@@ -92,13 +92,13 @@ Window {
                             model: regatta.sailing_clubs
                             //onSortIndicatorColumnChanged: model.sort(sortIndicatorColumn, sortIndicatorOrder)
                             //onSortIndicatorOrderChanged: model.sort(sortIndicatorColumn, sortIndicatorOrder)
-                            onClicked: selectedSailingClub = model[row]
+                            onClicked: selectedSailingClub = model.get(row)
                             onDoubleClicked: {
                                 sailingClubSelected(selectedSailingClub)
                                 root.close()
                             }
                             onActivated: {
-                                selectedSailingClub = model[row]
+                                selectedSailingClub = model.get(row)
                             }
                             Component.onCompleted: {
                                 var index = Helper.getIndex(model, selectedSailingClub)

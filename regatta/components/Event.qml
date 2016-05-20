@@ -88,8 +88,8 @@ TabView {
                     Layout.fillWidth: true
                     model: regatta.organizers
                     textRole: 'name'
-                    onModelChanged: currentIndex = Helper.getIndex(regatta.organizers, event.organizer)
-                    onActivated: event.organizer = model[index]
+                    onModelChanged: currentIndex = Helper.getIndex(model, event.organizer)
+                    onActivated: event.organizer = model.get(index)
                 }
                 Button {
                     iconSource: "icons/ic_create_black_18px.svg"

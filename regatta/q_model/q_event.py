@@ -97,13 +97,13 @@ class QEvent(QObject):
 
     @pyqtProperty(QSailingClub, notify=organizerChanged)
     def organizer(self):
-        organizer = self._q_regatta.find_q_sailing_club(self._event.organizer)
+        organizer = self._q_regatta.sailing_clubs.find_q_sailing_club(self._event.organizer)
         print('Found sailing club %s' % organizer)
         return organizer
 
     @organizer.setter
     def organizer(self, q_organizer):
-        if self._event.organizer != q_organizer.sailing_club():
+        if q_organizer and self._event.organizer != q_organizer.sailing_club():
             print('organizer changed to %s' % q_organizer.name)
             self._event.organizer = q_organizer.sailing_club()
             q_organizer.was_organizer = True
