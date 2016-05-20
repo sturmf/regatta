@@ -3,24 +3,15 @@ from regatta import SailingClub
 from .q_sailing_club import QSailingClub
 
 class QSailingClubs(QAbstractListModel):
-    ObjectRole = Qt.UserRole + 1 # We always want a way to access the underlying object
-    NameRole = Qt.UserRole + 2
+    NameRole = Qt.UserRole + 1
     _roles = {
         NameRole: "name",
-        ObjectRole: "object",
     }
 
     def __init__(self, q_regatta, parent=None):
         super().__init__(parent)
         self._q_regatta=q_regatta
         self._q_sailing_clubs = {}
-
-    def _roleKey(self, role):
-        roles = self.roleNames()
-        for key, value in roles.items():
-            if value == role:
-                return key
-        return -1
 
     def roleNames(self):
         _roles = super().roleNames()
@@ -34,10 +25,8 @@ class QSailingClubs(QAbstractListModel):
 
     @pyqtSlot(int, result=QSailingClub)
     def get(self, row):
-        #index = super().index(row, 0)
-        #data = self.data(index, self._roleKey(role))
         data = self._q_regatta._regatta.session.query(SailingClub).order_by(SailingClub.id).all()[row]
-        data = self.find_q_sailing_club(data)
+        data = self.resolve(data)
         return data
 
     @pyqtSlot(int, result=QModelIndex)
@@ -50,19 +39,16 @@ class QSailingClubs(QAbstractListModel):
     def data(self, index, role=Qt.DisplayRole):
         try:
             sailing_club = self._q_regatta._regatta.session.query(SailingClub).order_by(SailingClub.id).all()[index.row()]
-            q_sailing_club = self.find_q_sailing_club(sailing_club)
+            q_sailing_club = self.resolve(sailing_club)
         except IndexError:
             return QVariant()
 
-        if role == self.ObjectRole:
-            print("Now return sc", q_sailing_club)
-            return q_sailing_club
-        elif role == self.NameRole:
+        if role == self.NameRole or role == Qt.DisplayRole:
             return q_sailing_club.name
 
         return QVariant()
 
-    def find_q_sailing_club(self, sailing_club):
+    def resolve(self, sailing_club):
         q_sailing_club = self._q_sailing_clubs.get(sailing_club.id)
         if not q_sailing_club:
             q_sailing_club = QSailingClub(sailing_club, self)
