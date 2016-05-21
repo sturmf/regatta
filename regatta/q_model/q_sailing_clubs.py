@@ -52,5 +52,10 @@ class QSailingClubs(QAbstractListModel):
         q_sailing_club = self._q_sailing_clubs.get(sailing_club.id)
         if not q_sailing_club:
             q_sailing_club = QSailingClub(sailing_club, self)
+            q_sailing_club.dataChanged.connect(self._refresh)
             self._q_sailing_clubs[sailing_club.id] = q_sailing_club
         return q_sailing_club
+
+    def _refresh(self):
+        # FIXME: use correct index
+        self.dataChanged.emit(self.index(0), self.index(0))

@@ -10,6 +10,7 @@ class QSailingClub(QObject):
         print("sailing_club constructed")
 
     # All signals
+    dataChanged = pyqtSignal()
     uuidChanged = pyqtSignal()
     nameChanged = pyqtSignal()
     abbreviationChanged = pyqtSignal()
@@ -32,6 +33,7 @@ class QSailingClub(QObject):
         if self._sailing_club.name != name:
             self._sailing_club.name = name
             self.nameChanged.emit()
+            self.dataChanged.emit()
 
     @pyqtProperty('QString', notify=abbreviationChanged)
     def abbreviation(self):
@@ -42,6 +44,7 @@ class QSailingClub(QObject):
         if self._sailing_club.abbreviation != abbreviation:
             self._sailing_club.abbreviation = abbreviation
             self.abbreviationChanged.emit()
+            self.dataChanged.emit()
 
     @pyqtProperty('QString', notify=registrationChanged)
     def registration(self):
@@ -52,6 +55,7 @@ class QSailingClub(QObject):
         if self._sailing_club.registration != registration:
             self._sailing_club.registration = registration
             self.registrationChanged.emit()
+            self.dataChanged.emit()
 
     @pyqtProperty('bool')
     def was_organizer(self):
@@ -62,3 +66,4 @@ class QSailingClub(QObject):
         if self._sailing_club.was_organizer != was_organizer:
             self._sailing_club.was_organizer = was_organizer
             self.was_organizerChanged.emit()
+            self.dataChanged.emit()
