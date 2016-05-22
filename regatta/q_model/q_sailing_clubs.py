@@ -10,8 +10,13 @@ class QSailingClubs(QAbstractListModel):
 
     def __init__(self, q_regatta, parent=None):
         super().__init__(parent)
-        self._q_regatta=q_regatta
-        self._q_sailing_clubs = {}
+        self._q_regatta = q_regatta
+        # Load all SailingClubs and create a lookup dict
+        self._q_sailing_clubs_list = [QSailingClub(sailing_club, self) for sailing_club in self._q_regatta._regatta.session.query(SailingClub).all()]
+        self._q_sailing_clubs_by_uuid = {sailing_club.uuid: sailing_club for sailing_club in self._q_sailing_clubs_list}
+        # We need to know when a SailingClub is modified so that we can emit a dataChanged signal
+        for q_sailing_club in self._q_sailing_clubs_list:
+            q_sailing_club.dataChanged.connect(self._dataChanged)
 
     def roleNames(self):
         _roles = super().roleNames()
@@ -21,13 +26,11 @@ class QSailingClubs(QAbstractListModel):
     @pyqtSlot(result=int)
     @pyqtSlot(QModelIndex, result=int)
     def rowCount(self, parent=QModelIndex()):
-        return self._q_regatta._regatta.session.query(SailingClub).count()
+        return len(self._q_sailing_clubs_list)
 
     @pyqtSlot(int, result=QSailingClub)
     def get(self, row):
-        data = self._q_regatta._regatta.session.query(SailingClub).order_by(SailingClub.id).all()[row]
-        data = self.resolve(data)
-        return data
+        return self._q_sailing_clubs_list[row]
 
     @pyqtSlot(int, result=QModelIndex)
     @pyqtSlot(int, int, result=QModelIndex)
@@ -38,24 +41,22 @@ class QSailingClubs(QAbstractListModel):
     @pyqtSlot(QModelIndex, int, result=QVariant)
     def data(self, index, role=Qt.DisplayRole):
         try:
-            sailing_club = self._q_regatta._regatta.session.query(SailingClub).order_by(SailingClub.id).all()[index.row()]
-            q_sailing_club = self.resolve(sailing_club)
+            q_sailing_club = self._q_sailing_clubs_list[index.row()]
         except IndexError:
             return QVariant()
 
         if role == self.NameRole or role == Qt.DisplayRole:
             return q_sailing_club.name
-
         return QVariant()
 
     def resolve(self, sailing_club):
-        q_sailing_club = self._q_sailing_clubs.get(sailing_club.id)
-        if not q_sailing_club:
-            q_sailing_club = QSailingClub(sailing_club, self)
-            q_sailing_club.dataChanged.connect(self._refresh)
-            self._q_sailing_clubs[sailing_club.id] = q_sailing_club
-        return q_sailing_club
+        return self._q_sailing_clubs_by_uuid.get(str(sailing_club.uuid))
 
-    def _refresh(self):
-        # FIXME: use correct index
-        self.dataChanged.emit(self.index(0), self.index(0))
+    def _dataChanged(self):
+        # Find the row of the SailingClub to build the index from
+        # Not very fast, could be indexed if ever necessary
+        try:
+            row = self._q_sailing_clubs_list.index(self.sender())
+            self.dataChanged.emit(self.index(row), self.index(row))
+        except ValueError:
+            print("Could not find changed SailingClub")
