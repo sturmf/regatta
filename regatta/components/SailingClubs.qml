@@ -73,7 +73,7 @@ Window {
                                 anchors.right: parent.right
                                 iconSource: "icons/ic_delete_black_18px.svg"
                                 onClicked: {
-                                    regatta.delete_sailing_club(selectedSailingClub)
+                                    regatta.sailing_clubs.delete_sailing_club(selectedSailingClub)
                                 }
                             }
                         }

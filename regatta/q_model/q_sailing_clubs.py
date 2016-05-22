@@ -48,6 +48,19 @@ class QSailingClubs(QAbstractListModel):
         q_sailing_club.dataChanged.connect(self._dataChanged)
         super().endInsertRows()
 
+    @pyqtSlot(QSailingClub)
+    def delete_sailing_club(self, q_sailing_club):
+        try:
+            # Not very fast, could be indexed if ever necessary
+            row = self._q_sailing_clubs_list.index(q_sailing_club)
+            super().beginRemoveRows(QModelIndex(), row, row)
+            self._q_regatta._regatta.delete_sailing_club(q_sailing_club.sailing_club())
+            self._q_sailing_clubs_list.remove(q_sailing_club)
+            del self._q_sailing_clubs_by_uuid[q_sailing_club.uuid]
+            super().endRemoveRows()
+        except ValueError:
+            print("Could not find SailingClub to delete")
+
     @pyqtSlot(QModelIndex, int, result=QVariant)
     def data(self, index, role=Qt.DisplayRole):
         try:
@@ -60,12 +73,13 @@ class QSailingClubs(QAbstractListModel):
         return QVariant()
 
     def resolve(self, sailing_club):
-        return self._q_sailing_clubs_by_uuid.get(str(sailing_club.uuid))
+        if sailing_club:
+            return self._q_sailing_clubs_by_uuid.get(str(sailing_club.uuid))
+        return None
 
     def _dataChanged(self):
-        # Find the row of the SailingClub to build the index from
-        # Not very fast, could be indexed if ever necessary
         try:
+            # Not very fast, could be indexed if ever necessary
             row = self._q_sailing_clubs_list.index(self.sender())
             self.dataChanged.emit(self.index(row), self.index(row))
         except ValueError:
