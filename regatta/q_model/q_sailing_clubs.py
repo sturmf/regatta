@@ -38,6 +38,16 @@ class QSailingClubs(QAbstractListModel):
     def index(self, row, column=0, parent=QModelIndex()):
         return super().index(row, column, parent)
 
+    @pyqtSlot()
+    def new_sailing_club(self):
+        super().beginInsertRows(QModelIndex(), self.rowCount(), self.rowCount())
+        sailing_club = self._q_regatta._regatta.new_sailing_club()
+        q_sailing_club = QSailingClub(sailing_club, self)
+        self._q_sailing_clubs_list.append(q_sailing_club)
+        self._q_sailing_clubs_by_uuid[q_sailing_club.uuid] = q_sailing_club
+        q_sailing_club.dataChanged.connect(self._dataChanged)
+        super().endInsertRows()
+
     @pyqtSlot(QModelIndex, int, result=QVariant)
     def data(self, index, role=Qt.DisplayRole):
         try:

@@ -66,7 +66,7 @@ Window {
                                 anchors.right: removeButton.left
                                 anchors.rightMargin: 10
                                 iconSource: "icons/ic_note_add_black_18px.svg"
-                                onClicked: regatta.new_sailing_club()
+                                onClicked: regatta.sailing_clubs.new_sailing_club()
                             }
                             Button {
                                 id: removeButton

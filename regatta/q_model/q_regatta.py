@@ -38,15 +38,6 @@ class QRegatta(QObject):
         self.eventCreated.emit(qevent)
         self.eventsChanged.emit()
 
-    @pyqtSlot()
-    def new_sailing_club(self):
-        sailing_club = self._regatta.new_sailing_club()
-        q_sailing_club = QSailingClub(sailing_club)
-        q_sailing_club.was_organizerChanged.connect(self.refresh_organizers)
-        self._sailing_clubs.append(q_sailing_club)
-        self.sailingClubsChanged.emit()
-        self.sailingClubCreated.emit(q_sailing_club)
-
     @pyqtSlot(QSailingClub)
     def delete_sailing_club(self, sailing_club):
         if sailing_club:
