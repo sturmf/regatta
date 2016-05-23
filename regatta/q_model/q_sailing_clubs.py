@@ -5,7 +5,7 @@ from .q_sailing_club import QSailingClub
 class QSailingClubs(QAbstractListModel):
     NameRole = Qt.UserRole + 1
     _roles = {
-        NameRole: "name",
+        NameRole: b"name",
     }
 
     def __init__(self, q_regatta, parent=None):
