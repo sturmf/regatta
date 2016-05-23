@@ -1,6 +1,6 @@
-from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject, QAbstractListModel
+from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
 from PyQt5.QtQml import QQmlListProperty
-from regatta import Regatta, Event, SailingClub
+from regatta import Regatta, Event
 from .q_event import QEvent
 from .q_sailing_club import QSailingClub
 from .q_sailing_clubs import QSailingClubs
@@ -23,7 +23,7 @@ class QRegatta(QObject):
         self._events = [QEvent(self, event) for event in self._regatta.session.query(Event).all()]
         self._q_sailing_clubs = QSailingClubs(self, parent)
         # Register for was_organizer changes
-        #for q_sailing_club in self._sailing_clubs:
+        # for q_sailing_club in self._sailing_clubs:
         #    q_sailing_club.was_organizerChanged.connect(self.refresh_organizers)
 
     @pyqtProperty(QQmlListProperty, notify=eventsChanged)

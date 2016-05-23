@@ -1,6 +1,7 @@
-from PyQt5.QtCore import QAbstractListModel, Qt, QModelIndex, QVariant, QObject, pyqtSlot
+from PyQt5.QtCore import QAbstractListModel, Qt, QModelIndex, QVariant, pyqtSlot
 from regatta import SailingClub
 from .q_sailing_club import QSailingClub
+
 
 class QSailingClubs(QAbstractListModel):
     NameRole = Qt.UserRole + 1

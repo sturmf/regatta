@@ -98,7 +98,7 @@ class QEvent(QObject):
     @pyqtProperty(QSailingClub, notify=organizerChanged)
     def organizer(self):
         organizer = self._q_regatta.sailing_clubs.resolve(self._event.organizer)
-        print('Found sailing club %s' % organizer)
+        print('Found sailing club:', organizer)
         return organizer
 
     @organizer.setter
