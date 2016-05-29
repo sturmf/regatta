@@ -1,7 +1,7 @@
 import datetime
 import enum
 from sqlalchemy import Column, Integer, String, Enum, Date, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from .base import BASE
 from .person import Person
 
@@ -24,11 +24,11 @@ class Event(BASE):
     """amount of races scheduled during the event"""
     race_count = Column(Integer)
     """the sailing club that organizes the event"""
-    organizer_id = Column(Integer, ForeignKey('sailing_club.id'))
-    organizer = relationship("SailingClub")
+    organizer_id = Column(Integer, ForeignKey('sailing_club.id'), nullable=True)
+    organizer = relationship("SailingClub", backref=backref('events'))
     """the person responsible for the execution of the event"""
-    race_committee_id = Column(Integer, ForeignKey('person.id'))
-    race_committee = relationship(Person)
+    race_committee_id = Column(Integer, ForeignKey('person.id'), nullable=True)
+    race_committee = relationship(Person, backref=backref('events'))
 
     def __init__(self):
         self.name = ''
