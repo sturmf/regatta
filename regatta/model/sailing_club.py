@@ -6,6 +6,7 @@ from .base import BASE
 
 class SailingClub(BASE):
     __tablename__ = 'sailing_club'
+    __table_args__ = {'sqlite_autoincrement': True}
 
     id = Column(Integer, primary_key=True)
     """a unique id independent of database save"""

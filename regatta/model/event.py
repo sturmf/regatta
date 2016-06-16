@@ -8,6 +8,7 @@ from .person import Person
 
 class Event(BASE):
     __tablename__ = 'event'
+    __table_args__ = {'sqlite_autoincrement': True}
 
     class Mode(enum.Enum):
         Yardstick, Class = range(2)

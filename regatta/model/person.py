@@ -4,6 +4,7 @@ from .base import BASE
 
 class Person(BASE):
     __tablename__ = 'person'
+    __table_args__ = {'sqlite_autoincrement': True}
 
     id = Column(Integer, primary_key=True)
     first_name = Column(String, nullable=False)
