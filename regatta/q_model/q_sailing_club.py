@@ -4,10 +4,15 @@ from PyQt5.QtCore import pyqtProperty, pyqtSignal, QObject
 # This is the type that will be registered with QML. It must be a sub-class of QObject.
 class QSailingClub(QObject):
 
-    def __init__(self, sailing_club, parent=None):
+    def __init__(self, q_regatta, sailing_club, parent=None):
         QObject.__init__(self, parent)
+        self._q_regatta = q_regatta
         self._sailing_club = sailing_club
         print("sailing_club constructed")
+
+    def __del__(self):
+        print("sc destroyed")
+        self._q_regatta._regatta.session.delete(self._sailing_club)
 
     # All signals
     dataChanged = pyqtSignal()

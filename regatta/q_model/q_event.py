@@ -8,9 +8,11 @@ class QEvent(QObject):
 
     def __init__(self, q_regatta, event, parent=None):
         QObject.__init__(self, parent)
+        self._event = event  # Our database link
         self._q_regatta = q_regatta
-        self._event = event
+        self._q_organizer = None
         self._race_committee = None
+        self.organizer = q_regatta.sailing_clubs.resolve(event.organizer)
         print("constructed")
 
     # All signals
@@ -97,14 +99,30 @@ class QEvent(QObject):
 
     @pyqtProperty(QSailingClub, notify=organizerChanged)
     def organizer(self):
-        organizer = self._q_regatta.sailing_clubs.resolve(self._event.organizer)
-        print('Found sailing club:', organizer)
-        return organizer
+        return self._q_organizer
 
     @organizer.setter
     def organizer(self, q_organizer):
-        if q_organizer and self._event.organizer != q_organizer.sailing_club():
-            print('organizer changed to %s' % q_organizer.name)
+        print("Check if organizer changed")
+        if self._q_organizer != q_organizer:
+            print('organizer changed to %s' % q_organizer)
+
+            # Disconnect from previous organizer
+            if self._q_organizer:
+                self._q_organizer.destroyed.disconnect()
+
+            self._q_organizer = q_organizer
             self._event.organizer = q_organizer.sailing_club()
             q_organizer.was_organizer = True
+
+            print("Connect destroyed signal to:", q_organizer)
+            # Connect to new organizer
+            q_organizer.destroyed.connect(self.organizerDestroyed)
+            self.organizerChanged.emit()
+
+    def organizerDestroyed(self):
+        print("organizer destroyed")
+        # We can't reuse the organizer setter since we no longer can disconnect
+        if self._q_organizer:
+            self._q_organizer = None
             self.organizerChanged.emit()

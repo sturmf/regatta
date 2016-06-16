@@ -88,8 +88,16 @@ TabView {
                     Layout.fillWidth: true
                     model: regatta.organizers
                     textRole: 'name'
-                    onModelChanged: currentIndex = Helper.getIndex(model, event.organizer)
                     onActivated: event.organizer = model.get(index)
+                    Component.onCompleted: {
+                        // The ComboBox sets the index automatically to 0 after loading if it is -1 which would prevent an empty selection
+                        currentIndex = Helper.getIndex(model, event.organizer)
+                    }
+                    Connections {
+                        // We need to be able to update the currentIndex on organizer changes
+                        target: event
+                        onOrganizerChanged: organizerComboBox.currentIndex = Helper.getIndex(tabView.model, tabView.event.organizer)
+                    }
                 }
                 Button {
                     iconSource: "icons/ic_create_black_18px.svg"

@@ -11,5 +11,3 @@ function editSailingClubs(parent, regatta, event) {
     sailingClubs.show();
     sailingClubs.sailingClubSelected.connect(sailingClubSelected)
 }
-
-

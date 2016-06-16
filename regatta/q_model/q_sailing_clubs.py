@@ -13,7 +13,7 @@ class QSailingClubs(QAbstractListModel):
         super().__init__(parent)
         self._q_regatta = q_regatta
         # Load all SailingClubs and create a lookup dict
-        self._q_sailing_clubs_list = [QSailingClub(sailing_club, self) for sailing_club in self._q_regatta._regatta.session.query(SailingClub).all()]
+        self._q_sailing_clubs_list = [QSailingClub(q_regatta, sailing_club, self) for sailing_club in self._q_regatta._regatta.session.query(SailingClub).all()]
         self._q_sailing_clubs_by_uuid = {sailing_club.uuid: sailing_club for sailing_club in self._q_sailing_clubs_list}
         # We need to know when a SailingClub is modified so that we can emit a dataChanged signal
         for q_sailing_club in self._q_sailing_clubs_list:
@@ -43,7 +43,7 @@ class QSailingClubs(QAbstractListModel):
     def new_sailing_club(self):
         super().beginInsertRows(QModelIndex(), self.rowCount(), self.rowCount())
         sailing_club = self._q_regatta._regatta.new_sailing_club()
-        q_sailing_club = QSailingClub(sailing_club, self)
+        q_sailing_club = QSailingClub(self._q_regatta, sailing_club, self)
         self._q_sailing_clubs_list.append(q_sailing_club)
         self._q_sailing_clubs_by_uuid[q_sailing_club.uuid] = q_sailing_club
         q_sailing_club.dataChanged.connect(self._dataChanged)
@@ -58,12 +58,15 @@ class QSailingClubs(QAbstractListModel):
             self._q_regatta._regatta.delete_sailing_club(q_sailing_club.sailing_club())
             self._q_sailing_clubs_list.remove(q_sailing_club)
             del self._q_sailing_clubs_by_uuid[q_sailing_club.uuid]
+            print("Deleting:", q_sailing_club)
+            q_sailing_club.deleteLater()
             super().endRemoveRows()
         except ValueError:
             print("Could not find SailingClub to delete")
 
     @pyqtSlot(QModelIndex, int, result=QVariant)
     def data(self, index, role=Qt.DisplayRole):
+        print("Index:", index.row())
         try:
             q_sailing_club = self._q_sailing_clubs_list[index.row()]
         except IndexError:

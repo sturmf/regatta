@@ -39,3 +39,34 @@ def test_regatta_name():
     regatta = Regatta(filename)
     event = regatta.session.query(Event).filter(Event.id == event_id).one()
     assert(event.name == name)
+
+
+def test_organizer_deletion():
+    filename = 'test.rgs'
+
+    # Test default value
+    regatta = Regatta(filename, overwrite=True)
+    event = regatta.new_event()
+    sailing_club = regatta.new_sailing_club()
+    event.organizer = sailing_club
+
+    # Test persistence
+    regatta.save()
+    event_id = event.id
+    sailing_club_id = sailing_club.id
+
+    # reload regatta
+    regatta = Regatta(filename)
+    event = regatta.session.query(Event).filter(Event.id == event_id).one()
+    print(event.organizer)
+    assert(event.organizer.id == sailing_club.id)
+
+    # Test deletion
+    regatta.session.delete(event.organizer)
+    regatta.save()
+   
+    # reload regatta
+    regatta = Regatta(filename)
+    event = regatta.session.query(Event).filter(Event.id == event_id).one()
+    print(event.organizer)
+    assert(event.organizer == None)

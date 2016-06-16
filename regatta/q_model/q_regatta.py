@@ -20,8 +20,8 @@ class QRegatta(QObject):
         QObject.__init__(self, parent)
         # Load the model that we adapt
         self._regatta = Regatta()
-        self._events = [QEvent(self, event) for event in self._regatta.session.query(Event).all()]
         self._q_sailing_clubs = QSailingClubs(self, parent)
+        self._events = [QEvent(self, event) for event in self._regatta.session.query(Event).all()]
         # Register for was_organizer changes
         # for q_sailing_club in self._sailing_clubs:
         #    q_sailing_club.was_organizerChanged.connect(self.refresh_organizers)
