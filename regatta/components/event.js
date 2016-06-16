@@ -1,9 +1,6 @@
-.import "helper.js" as Helper
-
 function editSailingClubs(parent, regatta, event) {
     function sailingClubSelected(sailing_club) {
         event.organizer = sailing_club
-        parent.currentIndex = Helper.getIndex(regatta.organizers, sailing_club)
     }
 
     var component = Qt.createComponent("SailingClubs.qml");

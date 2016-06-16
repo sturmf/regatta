@@ -96,7 +96,7 @@ TabView {
                     Connections {
                         // We need to be able to update the currentIndex on organizer changes
                         target: event
-                        onOrganizerChanged: organizerComboBox.currentIndex = Helper.getIndex(tabView.model, tabView.event.organizer)
+                        onOrganizerChanged: organizerComboBox.currentIndex = Helper.getIndex(regatta.organizers, event.organizer)
                     }
                 }
                 Button {
