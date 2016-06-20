@@ -2,7 +2,6 @@ from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
 from PyQt5.QtQml import QQmlListProperty
 from regatta import Regatta, Event
 from .q_event import QEvent
-from .q_sailing_club import QSailingClub
 from .q_sailing_clubs import QSailingClubs
 
 
