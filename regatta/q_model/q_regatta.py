@@ -19,30 +19,23 @@ class QRegatta(QObject):
         # Load the model that we adapt
         self._regatta = Regatta()
         self._q_sailing_clubs = QSailingClubs(self, parent)
-        self._events = [QEvent(self, event) for event in self._regatta.session.query(Event).all()]
-        # Register for was_organizer changes
-        # for q_sailing_club in self._sailing_clubs:
-        #    q_sailing_club.was_organizerChanged.connect(self.refresh_organizers)
+        self._q_events = [QEvent(self, event) for event in self._regatta.session.query(Event).all()]
 
     @pyqtProperty(QQmlListProperty, notify=eventsChanged)
     def events(self):
-        return QQmlListProperty(QEvent, self, self._events)
+        return QQmlListProperty(QEvent, self, self._q_events)
 
     @pyqtSlot(str)
     def new_event(self, name):
         event = self._regatta.new_event(name)
-        qevent = QEvent(self, event)
-        self._events.append(qevent)
-        self.eventCreated.emit(qevent)
+        q_event = QEvent(self, event)
+        self._q_events.append(q_event)
+        self.eventCreated.emit(q_event)
         self.eventsChanged.emit()
 
     @pyqtProperty(QSailingClubs, notify=sailingClubsChanged)
     def sailing_clubs(self):
         return self._q_sailing_clubs
-
-    def refresh_organizers(self):
-        print('organizers refresh')
-        self.organizersChanged.emit()
 
     @pyqtSlot()
     def refresh(self):
