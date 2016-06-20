@@ -14,7 +14,6 @@ Window {
     property var event
     property var selectedSailingClub
 
-    signal sailingClubCreated(QSailingClub sailing_club) // fixme should be a function
     signal sailingClubSelected(QSailingClub sailing_club)
 
     width: 800
@@ -22,8 +21,15 @@ Window {
 
     modality: Qt.WindowModal
 
-    onSailingClubCreated: selectedSailingClub = sailing_club
-    Component.onCompleted: { regatta.sailingClubCreated.connect(root.sailingClubCreated) }
+    function select_sailing_club(sailing_club) {
+        selectedSailingClub = sailing_club
+        var index = Helper.getIndex(regatta.sailing_clubs, selectedSailingClub)
+        sailing_club_table.currentRow = index
+        sailing_club_table.selection.clear()
+        sailing_club_table.selection.select(index)
+        sailing_club_table.positionViewAtRow(index, ListView.Contain)
+    }
+    Component.onCompleted: { regatta.sailing_clubs.sailingClubCreated.connect(root.select_sailing_club) }
 
     Item {
         width: parent.width
@@ -93,16 +99,15 @@ Window {
                             //onSortIndicatorColumnChanged: model.sort(sortIndicatorColumn, sortIndicatorOrder)
                             //onSortIndicatorOrderChanged: model.sort(sortIndicatorColumn, sortIndicatorOrder)
                             onClicked: selectedSailingClub = model.get(row)
+                            onActivated: selectedSailingClub = model.get(row)
                             onDoubleClicked: {
                                 sailingClubSelected(selectedSailingClub)
                                 root.close()
                             }
-                            onActivated: {
-                                selectedSailingClub = model.get(row)
-                            }
                             Component.onCompleted: {
                                 var index = Helper.getIndex(model, selectedSailingClub)
-                                sailing_club_table.selection.select(index, index)
+                                sailing_club_table.currentRow = index
+                                sailing_club_table.selection.select(index)
                                 sailing_club_table.positionViewAtRow(index, ListView.Contain)
                             }
                         }

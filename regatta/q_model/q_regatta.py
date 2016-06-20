@@ -11,7 +11,6 @@ class QRegatta(QObject):
 
     # All signals
     eventCreated = pyqtSignal(QEvent)
-    sailingClubCreated = pyqtSignal(QSailingClub)
     eventsChanged = pyqtSignal()
     sailingClubsChanged = pyqtSignal()
     organizersChanged = pyqtSignal()

@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QAbstractListModel, Qt, QModelIndex, QVariant, pyqtSlot
+from PyQt5.QtCore import QAbstractListModel, Qt, QModelIndex, QVariant, pyqtSlot, pyqtSignal
 from regatta import SailingClub
 from .q_sailing_club import QSailingClub
 
@@ -8,6 +8,8 @@ class QSailingClubs(QAbstractListModel):
     _roles = {
         NameRole: b"name",
     }
+
+    sailingClubCreated = pyqtSignal(QSailingClub)
 
     def __init__(self, q_regatta, parent=None):
         super().__init__(parent)
@@ -48,6 +50,7 @@ class QSailingClubs(QAbstractListModel):
         self._q_sailing_clubs_by_uuid[q_sailing_club.uuid] = q_sailing_club
         q_sailing_club.dataChanged.connect(self._dataChanged)
         super().endInsertRows()
+        self.sailingClubCreated.emit(q_sailing_club)
 
     @pyqtSlot(QSailingClub)
     def delete_sailing_club(self, q_sailing_club):
