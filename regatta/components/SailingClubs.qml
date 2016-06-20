@@ -29,7 +29,11 @@ Window {
         sailing_club_table.selection.select(index)
         sailing_club_table.positionViewAtRow(index, ListView.Contain)
     }
-    Component.onCompleted: { regatta.sailing_clubs.sailingClubCreated.connect(root.select_sailing_club) }
+    Component.onCompleted: {
+        regatta.sailing_clubs.sailingClubCreated.connect(root.select_sailing_club)
+        // Do the initial selection
+        select_sailing_club(selectedSailingClub)
+    }
 
     Item {
         width: parent.width
@@ -103,12 +107,6 @@ Window {
                             onDoubleClicked: {
                                 sailingClubSelected(selectedSailingClub)
                                 root.close()
-                            }
-                            Component.onCompleted: {
-                                var index = Helper.getIndex(model, selectedSailingClub)
-                                sailing_club_table.currentRow = index
-                                sailing_club_table.selection.select(index)
-                                sailing_club_table.positionViewAtRow(index, ListView.Contain)
                             }
                         }
                     }
